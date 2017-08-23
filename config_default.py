@@ -5,8 +5,8 @@ configs={
     'db':{
         'host':'127.0.0.1',
         'port':3306,
-        'user':'Edward',
-        'password':151480,
+        'user':'root',
+        'password':'151480',
         'database':'awesome'
     },
     'session':{

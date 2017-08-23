@@ -8,7 +8,7 @@ def create_pool(loop,**kw):
     logging.info('create database connection pool...')
     global __pool
     __pool=yield from aiomysql.create_pool(
-        host=kw.get('host','localhost'),
+        host=kw.get('host','127.0.0.1'),
         user=kw['user'],
         password=kw['password'],
         db=kw['database'],
@@ -50,7 +50,7 @@ def execute(sql,args,autocommit=True):
                 yield from conn.commit()
         except BaseException as e:
             if not autocommit:
-                await conn.rollback()
+                yield from conn.rollback()
             raise
         return affectedLine
 def create_args_string(num):
@@ -200,7 +200,7 @@ class Model(dict,metaclass=ModelMetaclass):
         if rows !=1:
             logging.warn('failed to remove by primary key:affected rows:%s'%rows)
 
-
+'''
 if __name__ == "__main__":  # 一个类自带前后都有双下划线的方法，在子类继承该类的时候，这些方法会自动调用，比如__init__
     class User(Model):  # 虽然User类乍看没有参数传入，但实际上，User类继承Model类，Model类又继承dict类，所以User类的实例可以传入关键字参数
         id = IntegerField('id', primary_key=True)  # 主键为id， tablename为User，即类名
@@ -215,3 +215,4 @@ if __name__ == "__main__":  # 一个类自带前后都有双下划线的方法�
     # 保存到数据库：
     u.remove()
     print(u)
+'''

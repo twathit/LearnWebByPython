@@ -4,7 +4,8 @@ import asyncio,os,inspect,logging,functools
 from urllib import parse
 from aiohttp import web
 from apis import APIError
-def request(path,*,method):
+'''
+def request(path,method):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args,**kw):
@@ -15,6 +16,32 @@ def request(path,*,method):
     return decorator
 get=functools.partial(request,method='GET')
 post=functools.partial(request,method='POST')
+'''
+def get(path):
+    '''
+    Define decorator @get('/path')
+    '''
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            return func(*args, **kw)
+        wrapper.__method__ = 'GET'
+        wrapper.__route__ = path
+        return wrapper
+    return decorator
+
+def post(path):
+    '''
+    Define decorator @post('/path')
+    '''
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            return func(*args, **kw)
+        wrapper.__method__ = 'POST'
+        wrapper.__route__ = path
+        return wrapper
+    return decorator
 def get_required_kw_args(fn):
     params=inspect.signature(fn).parameters
     args=[]
@@ -62,7 +89,7 @@ class RequestHandler(object):
     async def __call__(self,request):
         kw=None
         if self._has_var_kw_arg or self._has_named_kw_args or self._required_kw_args:
-            if request.method=='POST'
+            if request.method=='POST':
                 if not request.content_type:
                     return web.HTTPBadRequest('Missing Content-Type.')
                 ct=request.content_type.lower()
@@ -76,7 +103,7 @@ class RequestHandler(object):
                     kw=dict(**params)
                 else:
                     return web.HTTPBadRequest('Unsupported Content-Type:%s'%request.content_type)
-            if request.method=='GET'
+            if request.method=='GET':
                 qs=request.query_string      #url中？后面的部分
                 if qs:
                     kw=dict()
@@ -110,11 +137,12 @@ class RequestHandler(object):
             return r
         except APIError as e:
             return dict(error=e.error,data=e.data,message=e.message)
+
 def add_static(app):
     path=os.path.join(os.path.dirname(os.path.abspath(__file__)),'static')
     app.router.add_static('/static/',path)
     logging.info('add static %s => %s'%('/static/',path))
-'''
+
 def add_route(app,fn):
     method=getattr(fn,'__method__',None)
     path=getattr(fn,'__route__',None)
@@ -124,23 +152,31 @@ def add_route(app,fn):
         fn=asyncio.coroutine(fn)
     logging.info('add route %s %s=>%s(%s)'%(method,path,fn.__name__,','.join(inspect.signature(fn).parameters.keys())))
     app.router.add_route(method,path,RequestHandler(app,fn))
-'''
+
 def add_routes(app,module_name):
     n=module_name.rfind('.')
+    #rfind() 返回字符串最后一次出现的位置(从右向左查询)，如果没有匹配项则返回-1。
     if n==(-1):
         mod=__import__(module_name,globals(),locals())
     else:
         name=module_name[n+1:]
         mod=getattr(__import__(module_name[:n],globals(),locals(),[name]),name)
     for attr in dir(mod):
+        #如果要获得一个对象的所有属性和方法，可以使用dir()函数
         if attr.startswith('_'):
             continue
         fn=getattr(mod,attr)
+        #print(fn)
         if callable(fn):
             method=getattr(fn,'__method__',None)
-            path=get(fn,'__route__',None)
+            path=getattr(fn,'__route__',None)
+
+            if method and path:
+                add_route(app, fn)
+            '''
             if path is None or method is None:
                 raise ValueError('@get or @post not defined in %s.' % str(fn))
             if method and path:
                 logging.info('add route %s %s=>%s(%s)' % (method, path, fn.__name__, ','.join(inspect.signature(fn).parameters.keys())))
                 app.router.add_route(method, path, RequestHandler(app, fn))
+            '''
