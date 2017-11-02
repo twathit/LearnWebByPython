@@ -1,4 +1,4 @@
-#!/usr/bin python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 __author__ = 'Edward'
 import re,time,json,logging,hashlib,base64,asyncio

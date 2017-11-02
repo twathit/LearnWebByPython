@@ -1,4 +1,4 @@
-#!/usr/bin python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 __author__ = 'Edward'
 import logging;logging.basicConfig(level=logging.INFO)
