@@ -1,19 +1,24 @@
 {% extends '__base__.html' %}
+
 {% block title %}{{ blog.name }}{% endblock %}
+
 {% block beforehead %}
+
 <script>
+
 var comment_url='/api/blogs/{{ blog.id }}/comments';
-$(function(){
-    var $form=$('#form-comment')；
-    $form.submit(function(e){
+
+$(function () {
+    var $form = $('#form-comment');
+    $form.submit(function (e) {
         e.preventDefault();
         $form.showFormError('');
-        var content=$form.find('textarea').val().trim();
-        if (content===''){
+        var content = $form.find('textarea').val().trim();
+        if (content==='') {
             return $form.showFormError('请输入评论内容！');
         }
-        $form.postJSON(comment_url,{ content:content },function(err,result){
-            if (err){
+        $form.postJSON(comment_url, { content: content }, function (err, result) {
+            if (err) {
                 return $form.showFormError(err);
             }
             refresh();
@@ -21,7 +26,9 @@ $(function(){
     });
 });
 </script>
+
 {% endblock %}
+
 {% block content %}
     <div class="uk-width-medium-3-4">
         <article class="uk-article">
@@ -38,13 +45,14 @@ $(function(){
                 <h4 class="uk-comment-title">{{ __user__.name }}</h4>
             </header>
             <div class="uk-comment-body">
+                
                 <form id="form-comment" class="uk-form">
                     <div class="uk-alert uk-alert-danger uk-hidden"></div>
                     <div class="uk-form-row">
                         <textarea rows="6" placeholder="说点什么吧" style="width:100%;resize:none;"></textarea>
                     </div>
                     <div class="uk-form-row">
-                        <button type="submit" class="uk-button uk-button-primary"><i class="uk-icon-comment"></i>发表评论</button>
+                        <button type="submit" class="uk-button uk-button-primary"><i class="uk-icon-comment"></i> 发表评论</button>
                     </div>
                 </form>
             </div>
