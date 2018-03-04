@@ -30,7 +30,13 @@ $(function(){
                     };
                 $form.postJSON('api/authenticate',data,function(err,result){
                     if (!err){
-                        location.assign('/');
+                        var prevLink = document.referrer;
+                        if($.trim(prevLink)==''){
+                            location.href = '/';
+                        }else{
+                            location.href = prevLink;
+                        }
+                        //location.assign('/');
                     }
                 });
             }
@@ -42,7 +48,7 @@ $(function(){
 <body class="uk-height-1-1">
     <div class="uk-vertical-align uk-text-center uk-height-1-1">
         <div class="uk-vertical-align-middle" style="width: 320px">
-            <p><a href="/" class="uk-icon-button"><i class="uk-icon-html5"></i></a><a href="/">You Just Find Me!</a></p>
+            <h3><a href="/">You Just Find Me!</a></h3>
             <form id="vm" v-on="submit: submit" class="uk-panel uk-panel-box uk-form">
                 <div class="uk-alert uk-alert-danger uk-hidden"></div>
                 <div class="uk-form-row">
@@ -62,6 +68,7 @@ $(function(){
                     <button type="submit"  class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><i class="uk-icon-sign-in"></i>登录</button>
                 </div>
             </form>
+            <p>没有账号？不<a href="/register">注册</a>一下吗 </p>
         </div>
     </div>
 </body>

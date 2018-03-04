@@ -1,39 +1,39 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 __author__ = 'Edward'
-import re,time,json,logging,hashlib,base64,asyncio
+import re, time, json, logging, hashlib, asyncio
 import markdown2
 from aiohttp import web
 from coroweb import get, post
 from models import User, Comment, Blog, next_id
-from apis import Page, APIError, APIValueError,APIResourceNotFoundError,APIPermissionError
+from apis import Page, APIError, APIValueError, APIResourceNotFoundError, APIPermissionError
 from config import configs
 
-COOKIE_NAME='awesession'
-_COOKIE_KEY=configs.session.secret
+COOKIE_NAME = 'awesession'
+_COOKIE_KEY = configs.session.secret
 
 def check_admin(request):
-    if request.__user__ is None :#or not request.__user__.admin:
+    if request.__user__ is None:           #or not request.__user__.admin:
         raise APIPermissionError()
 
 def get_page_index(page_str):
-    p=1
+    p = 1
     try:
-        p=int(page_str)
+        p = int(page_str)
     except ValueError as e:
         pass
-    if p<1:
-        p=1
+    if p < 1:
+        p = 1
     return p
 
-def user2cookie(user,max_age):
-    expires=str(int(time.time()+max_age))
-    s='%s-%s-%s-%s'%(user.id,user.password,expires,_COOKIE_KEY)
-    L=[user.id,expires,hashlib.sha1(s.encode('utf-8')).hexdigest()]
+def user2cookie(user, max_age):
+    expires = str(int(time.time()+max_age))
+    s = '%s-%s-%s-%s' % (user.id, user.password, expires, _COOKIE_KEY)
+    L = [user.id, expires, hashlib.sha1(s.encode('utf-8')).hexdigest()]
     return '-'.join(L)
 
 def text2html(text):
-    lines=map(lambda s:'<p>%s<p>'%s.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;'),filter(lambda s:s.strip() !='',text.split('\n')))
+    lines = map(lambda s: '<p>%s<p>' % s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;'), filter(lambda s: s.strip() != '', text.split('\n')))
     return ''.join(lines)
 
 @asyncio.coroutine
@@ -41,20 +41,20 @@ def cookie2user(cookie_str):
     if not cookie_str:
         return None
     try:
-        L=cookie_str.split('-')
-        if len(L)!=3:
+        L = cookie_str.split('-')
+        if len(L) != 3:
             return None
-        uid,expires,sha1=L
-        if int(expires)<time.time():
+        uid, expires, sha1 = L
+        if int(expires) < time.time():
             return None
-        user=yield from User.find(uid)
+        user = yield from User.find(uid)
         if user is None:
             return None
         s = '%s-%s-%s-%s' % (uid, user.password, expires, _COOKIE_KEY)
         if sha1 != hashlib.sha1(s.encode('utf-8')).hexdigest():
             logging.info('invalid sha1')
             return None
-        user.password='******'
+        user.password = '******'
         return user
     except Exception as e:
         logging.exception(e)

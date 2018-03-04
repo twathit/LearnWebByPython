@@ -8,6 +8,11 @@
 
 var comment_url='/api/blogs/{{ blog.id }}/comments';
 
+$('#click').click(function(blog){
+     location.assign('/manage/blogs/edit?id='+blog.id);
+     }
+});
+
 $(function () {
     var $form = $('#form-comment');
     $form.submit(function (e) {
@@ -33,6 +38,7 @@ $(function () {
     <div class="uk-width-medium-3-4">
         <article class="uk-article">
             <h2>{{ blog.name }}</h2>
+            <a href="#0"><i id="click" class="uk-icon-edit"></i></a>
             <p class="uk-article-meta">发表于{{ blog.created_at|datetime}}</p>
             <p>{{ blog.html_content|safe }}</p>
         </article>
@@ -45,7 +51,6 @@ $(function () {
                 <h4 class="uk-comment-title">{{ __user__.name }}</h4>
             </header>
             <div class="uk-comment-body">
-                
                 <form id="form-comment" class="uk-form">
                     <div class="uk-alert uk-alert-danger uk-hidden"></div>
                     <div class="uk-form-row">
@@ -58,6 +63,8 @@ $(function () {
             </div>
         </article>
         <hr class="uk-article-divider">
+        {% else %}
+        <p><a href="/signin">登录</a>方可评论</p>
     {% endif %}
         <h3>最新评论</h3>
         <ul class="uk-comment-list">
