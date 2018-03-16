@@ -13,6 +13,18 @@ $('#click').click(function(blog){
      }
 });
 
+$(function() {
+    var vm = new Vue({
+        el:'#vm',
+        methods:{
+            edit_blog:function (blog){
+                location.assign('/manage/blogs/edit?id='+blog.id);
+            }
+        }
+    });
+    $('#vm').show();
+});
+
 $(function () {
     var $form = $('#form-comment');
     $form.submit(function (e) {
@@ -38,7 +50,11 @@ $(function () {
     <div class="uk-width-medium-3-4">
         <article class="uk-article">
             <h2>{{ blog.name }}</h2>
-            <a href="#0"><i id="click" class="uk-icon-edit"></i></a>
+            {% if __user__ %}
+            <div id="vm">
+            <a href="#0" v-on="click:edit_blog(blog)"><i class="uk-icon-edit"></i></a>
+            </div>
+            {% endif %}
             <p class="uk-article-meta">发表于{{ blog.created_at|datetime}}</p>
             <p>{{ blog.html_content|safe }}</p>
         </article>
