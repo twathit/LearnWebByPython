@@ -1,0 +1,23 @@
+a:hover, a:active {
+    text-decoration: none;
+}
+
+#vm {
+    display: none;
+}
+#loading {
+    margin-bottom: 15px;
+}
+#error {
+    display: none;
+    margin-bottom: 15px;
+}
+
+.navbar-brand {
+	background-image: url('../img/banana.jpg');
+	width: 50px;
+	background-size: 80%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-right: 15px;
+}
