@@ -5,27 +5,46 @@
 </script>
 {% endblock %}
 {% block content %}
-    <div class="uk-width-medium-3-4">
+    <div class="col-xs-9">
     {% for blog in blogs %}
-        <article class="uk-article">
-            <h2><a href="/blog/{{blog.id}}">{{blog.name}}</a></h2>
-            <p class="uk-article-meta">发表于{{blog.created_at|datetime}}</p>
-            <!--<p>{{blog.summary}}</p>-->
-            <p>{{blog.content|summary}}</p>
-            <p><a href="/blog/{{blog.id}}">继续阅读<i class="uk-icon-angle-double-right"></i></a></p>
+        <article class="article">
+            <div class="item">
+                <h2><a class="title" href="/blog/{{blog.id}}">{{blog.name}}</a></h2>
+                <div class="info">
+                    <span class="avatar"><img src="{{blog.user_image}}"></span>
+                    <span>{{blog.user_name}}</span>
+                    <span class="status">发表于{{blog.created_at|datetime}}</span>
+                </div>
+                
+                <!--<p>{{blog.summary}}</p>-->
+                <p>{{blog.content|summary}}</p>
+                <p><a href="/blog/{{blog.id}}">
+                    <button class="btn btn-default">继续阅读<i class="fa fa-angle-double-right"></i></button>
+                </a></p>
+            </div>
         </article>
-        <hr class="uk-article-divider">
     {% endfor %}
     {{ pagination('/?page=',page) }}
     </div>
-    <div class="uk-width-medium-1-4">
-        <div class="uk-panel uk-panel-header">
-            <h3 class="uk-panel-title">友情链接</h3>
-            <ul class="uk-list uk-list-line">
-                <li><i class="uk-icon-thumbs-o-up"></i><a target="_blank" href="https://github.com/twathit">Github</a></li>
-                <li><i class="uk-icon-thumbs-o-up"></i><a target="_blank" href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000">Python教程</a></li>
-                <li><i class="uk-icon-thumbs-o-up"></i><a target="_blank" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a></li>
+    <div class="col-xs-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">友情链接</h3>
+            </div>
+            
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <i class="fa fa-external-link list"></i><a target="_blank" href="https://github.com/twathit">Github</a>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa fa-external-link list"></i><a target="_blank" href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000">Python教程</a>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa fa-external-link list"></i><a target="_blank" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a>
+                </li>
             </ul>
+            
+            
         </div>
     </div>
 {% endblock %}

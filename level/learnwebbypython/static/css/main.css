@@ -13,11 +13,140 @@ a:hover, a:active {
     margin-bottom: 15px;
 }
 
+.fa {
+	color: #777;
+	margin-right: 2px;
+}
+
+.navbar-default .navbar-nav > li > a {
+	border-radius: 4px;
+}
+.navbar-default .navbar-nav > li + li {
+	margin-left: 2px;
+}
+
+.navbar-default .navbar-nav > li.active > a,
+.navbar-default .navbar-nav > li.active > a:hover,
+.navbar-default .navbar-nav > li.active > a:focus {
+	color: #fff;
+	background-color: #6a8ff7;
+}
+
 .navbar-brand {
 	background-image: url('../img/banana.jpg');
-	width: 50px;
+	width: 60px;
 	background-size: 80%;
 	background-repeat: no-repeat;
 	background-position: center center;
-	margin-right: 15px;
+	margin-right: 10px;
+}
+
+.dropdown .dropdown-menu > li > a {
+	color: #2559ec;
+}
+
+.footer {
+	margin-top: 30px;
+	padding: 20px 0;
+	text-align: center;
+	color: #fff;
+	background: #6a8ff7;
+}
+
+.footer a {
+	color: #fff;
+}
+
+.article .item {
+	margin-bottom: 10px;
+	padding: 12px 15px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
+	box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
+	transition: transform 200ms;
+}
+
+.article .item:hover {
+	transform: scale(1.02,1.02);
+}
+
+.article .item .title {
+	display: block;
+	color: #444;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	line-height: 1.5;
+	-webkit-transition: font-size 200ms;
+	-o-transition: font-size 200ms;
+	transition: font-size 200ms;
+}
+
+.article .item .title:hover {
+	color:#6b5dde;
+	font-size: 19px
+}
+
+.article .item .info {
+	color: #999;
+	margin-bottom: 5px;
+}
+
+.avatar {
+	display: inline-block;
+}
+
+.avatar img {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 5px;
+}
+
+.btn-default {
+	color: #6b5dde;
+	background-color: #fff;
+	border-color:#6b5dde;
+}
+
+.btn-default:hover {
+	color: #fff;
+	background-color: #6b5dde;
+	border-color: #6b5dde;
+}
+
+.pagination {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	padding-left: 0;
+	margin: 20px 0;
+	text-align: center;
+	list-style: none;
+	}
+.pagination li {
+	display: inline;
+
+}
+.pagination li > a,
+.pagination li > span {
+	display: inline-block;
+	padding: 5px 15px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 15px;
+	margin-right: 5px;
+}
+
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+	margin-left: 0;
+	padding: 5px 12px;
+	border-radius: 15px;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+	padding: 5px 12px;
+	border-radius: 15px;
 }

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <!--
 {% macro pagination(url,page) %}
-    <ul class="uk-pagination">
+    <ul class="pagination">
         {% if page.has_previous %}
-            <li><a href="{{ url }}{{ page.page_index-1 }}"><i class="uk-icon-angle-double-left"></i></a></li>
+            <li><a href="{{ url }}{{ page.page_index-1 }}"><i class="fa fa-angle-double-left"></i></a></li>
         {% else %}
-            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+            <li class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>
         {% endif %}
-            <li class="uk-active"><span>{{ page.page_index }}</span></li>
+            <li class="active"><span>{{ page.page_index }}</span></li>
         {% if page.has_next %}
-            <li><a href="{{ url }}{{ page.page_index+1 }}"><i class="uk-icon-angle-double-right"></i></a></li>
+            <li><a href="{{ url }}{{ page.page_index+1 }}"><i class="fa fa-angle-double-right"></i></a></li>
         {% else %}
-            <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+            <li class="uk-disabled"><span><i class="fa fa-angle-double-right"></i></span></li>
         {% endif %}
     </ul>
 {% endmacro %}
@@ -24,12 +24,14 @@
     <title>{% block title %} ? {% endblock %} - TWATHIT的博客</title>
     <link rel="stylesheet" href="/static/css/uikit.min.css">
     <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
-    <link href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css">
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/sha1.min.js"></script>
     <script src="/static/js/uikit.min.js"></script>
     <script src="/static/js/sticky.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
     <script src="/static/js/vue.min.js"></script>
     <script src="/static/js/awesome.js"></script>
     {% block beforehead %}<!-- before head -->{% endblock %}
@@ -43,45 +45,43 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span>日志</a></li>
                 <li><a target="_blank" href="#"><span class="glyphicon glyphicon-film"></span>电影</a></li>
-                <li><a target="_blank" href="#"><span class="glyphicon glyphicon-ban-circle"></span>网球</a></li>
+                <li><a target="_blank" href="#"><span class="glyphicon glyphicon-option-horizontal"></span>更多</a></li>
             </ul>
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
             {% if __user__ %}
                 <li class="dropdown">
-                    <a href="#0"><i class="glyphicon glyphicon-user"></i>{{ __user__.name }}</a>
-                    <div class="uk-dropdown uk-dropdown-navbar">
-                        <ul class="uk-nav uk-nav-navbar">
-                            <li><a href="/signout"><i class="uk-icon-sign-out"></i>登出</a></li>
-                            <li ><a href="/manage/blogs"><i class="uk-icon-plus"></i>编辑日志</a></li>
-                        </ul>
-                    </div>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>{{ __user__.name }}</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                        <li class="divider"></li>
+                        <li ><a href="/manage/blogs"><span class="glyphicon glyphicon-pencil"></span>编辑日志</a></li>
+                    </ul>
                 </li>
             {% else %}
-                <li><a href="/signin"><i class="uk-icon-sign-in"></i>登录</a></li>
-                <li><a href="/register"><i class="uk-icon-edit"></i>注册</a></li>
+                <li><a href="/signin"><i class="fa fa-sign-in"></i>登录</a></li>
+                <li><a href="/register"><i class="fa fa-edit"></i>注册</a></li>
             {% endif %}
             </ul>
         </div>
     </nav>
-    <div class="uk-container uk-container-center">
-        <div class="uk-grid">
-            <!-- content -->
+    <div class="container">
+        <div class="row">
             {% block content %}
             {% endblock %}
-        </div>
+        </div>        
     </div>
-    <div class="uk-margin-large-top" style="background-color:#eee; border-top:1px solid #ccc;">
-        <div class="uk-container uk-container-center uk-text-center">
-            <div class="uk-panel uk-margin-top uk-margin-bottom">
+    <div class="footer">
+        <div class="container">
+            
                 <p>
-                    <a target="_blank" href="#" class="uk-icon-button uk-icon-weibo"></a>
-                    <a target="_blank" href="#" class="uk-icon-button uk-icon-github"></a>
-                    <a target="_blank" href="#" class="uk-icon-button uk-icon-linkedin-square"></a>
-                    <a target="_blank" href="#" class="uk-icon-button uk-icon-twitter"></a>
+                    <a target="_blank" href="https://github.com/twathit" class="fa fa-lg fa-github"></a>
+                    <a target="_blank" href="#" class="fa fa-lg fa-google"></a>
+                    <a target="_blank" href="#" class="fa fa-lg fa-twitter"></a>
+                    <a target="_blank" href="#" class="fa fa-lg fa-html5"></a>
                 </p>
-                <p>Powered by <a href="#">TWATHIT</a>. Copyright &copy; 2018.[<a href="/manage/" target="_blank">Manage</a>]</p>
-                <a target="_blank" href="#"><i class="uk-icon-html5" style="font-size:64px; color:#444;"></i></a>
-            </div>
+                <p>Powered by <a href="https://github.com/twathit">TWATHIT</a>. Copyright &copy; 2018.[<a href="/manage/" target="_blank">Manage</a>]</p>
+                <div><b>时间不逝，圆圈不圆</b></div>
+            
         </div>
     </div>
 </body>
