@@ -1,3 +1,47 @@
+{% extends '__base__.html' %}
+{% block title %}登录{% endblock %}
+{% block beforehead %}
+<script>
+    $(function(){
+        $('ul.t-active li:first-child').addClass('active');
+        var vmAuth=new Vue({
+            el:'#vm',
+            data:{
+                email:'',
+                password:''
+            },
+            methods:{
+                submit:function(event){
+                    event.preventDefault();
+                    var
+                        $form=$('#vm'),
+                        email=this.email.trim().toLowerCase(),
+                        data={
+                            email:email,
+                            password:this.password===''?'':CryptoJS.SHA1(email + ':' + this.password).toString()
+                        };
+                    $form.postJSON('api/authenticate',data,function(err,result){
+                        if (!err){
+                            var prevLink = document.referrer;
+                            if($.trim(prevLink)==''){
+                                location.href = '/';
+                            }
+                            if($.trim(prevLink)=='register'){
+                                location.href = '/';
+                            }
+                            else{
+                                location.href = prevLink;
+                            }
+                            //location.assign('/');
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+<!--
 <!DOCTYPE html>
 <html class="uk-height-1-1">
 <head>
@@ -45,31 +89,38 @@ $(function(){
 });
     </script>
 </head>
-<body class="uk-height-1-1">
-    <div class="uk-vertical-align uk-text-center uk-height-1-1">
-        <div class="uk-vertical-align-middle" style="width: 320px">
-            <h3><a href="/">You Just Find Me!</a></h3>
-            <form id="vm" v-on="submit: submit" class="uk-panel uk-panel-box uk-form">
-                <div class="uk-alert uk-alert-danger uk-hidden"></div>
-                <div class="uk-form-row">
-                    <div class="uk-form-icon uk-width-1-1">
-                        <i class="uk-icon-envelope-o"></i>
-                        <input v-model="email" name="email" type="text" placeholder="电子邮件" maxlength="50" class="uk-width-1-1 uk-form-large">
-                    </div>
+-->
+{% block content %}
+    <div class="container-small">
+        <h3><a href="/"><b class="font-KI">You Just Found Me!</b></a></h3>
+        <form id="vm" v-on="submit: submit">
+            <div class="alert alert-danger uk-hidden" aria-hidden="true">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            </div>
+            <div class="form-group">
+                <label class="font-H" for="for-email">Email</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-envelope-o fa-fw"></i>
+                    </div>                           
+                    <input v-model="email" name="email" type="text" placeholder="电子邮件" id="for-email" class="form-control">
                 </div>
-                <div class="uk-alert uk-alert-danger uk-hidden"></div>
-                <div class="uk-form-row">
-                    <div class="uk-form-icon uk-width-1-1">
-                        <i class="uk-icon-envelope-o"></i>
-                        <input v-model="password" name="password" type="password" placeholder="口令" maxlength="50" class="uk-width-1-1 uk-form-large">
-                    </div>
+            </div>
+            <div class="uk-alert uk-alert-danger uk-hidden"></div>
+            <div class="form-group">
+                <label class="font-H" for="for-password">Password</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-key fa-fw"></i>
+                    </div>                           
+                    <input v-model="password" name="password" type="password" placeholder="密码" id="for-password" class="form-control">
                 </div>
-                <div class="uk-form-row">
-                    <button type="submit"  class="uk-width-1-1 uk-button uk-button-primary uk-button-large"><i class="uk-icon-sign-in"></i>登录</button>
-                </div>
-            </form>
-            <p>没有账号？不<a href="/register">注册</a>一下吗 </p>
-        </div>
+            </div>
+            <div class="form-group">
+                <button type="submit"  class="btn btn-block btn-primary"><i class="glyphicon glyphicon-log-in"></i>登录</button>
+            </div>
+        </form>
+        <p>没有账号？不<a href="/register">注册</a>一下吗 </p>
     </div>
-</body>
-</html>
+
+{% endblock %}

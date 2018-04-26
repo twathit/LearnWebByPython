@@ -1,10 +1,16 @@
+html,body {
+	height: 100%;
+}
+
+
 a:hover, a:active {
     text-decoration: none;
 }
 
-#vm {
+/*#vm {
     display: none;
-}
+}*/
+
 #loading {
     margin-bottom: 15px;
 }
@@ -16,6 +22,34 @@ a:hover, a:active {
 .fa {
 	color: #777;
 	margin-right: 2px;
+}
+
+.glyphicon {
+	margin-right: 2px;
+}
+
+.navbar-default .navbar-nav > li:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 0;
+	height: 100%;
+	border-bottom: 1px solid #777;
+	transition: all 0.2s linear;
+}
+
+.navbar-default .navbar-nav > li:hover:before {
+	left: 0;
+	width: 100%;
+}
+
+.navbar-default .navbar-nav > li:hover~.navbar-default .navbar-nav > li:before {
+	left: 0;
+}
+
+.navbar-default .navbar-nav > li.active:before {
+	border-bottom: 0;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -45,9 +79,16 @@ a:hover, a:active {
 	color: #2559ec;
 }
 
+
+.push {
+	min-height: 100%;
+	padding-bottom: 180px;
+}
+
 .footer {
-	margin-top: 30px;
+	margin-top: -120px;
 	padding: 20px 0;
+	height: 120px;
 	text-align: center;
 	color: #fff;
 	background: #6a8ff7;
@@ -68,13 +109,13 @@ a:hover, a:active {
 }
 
 .article .item:hover {
-	transform: scale(1.02,1.02);
+	transform: scale(1.01,1.01);
 }
 
 .article .item .title {
 	display: block;
 	color: #444;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 5px;
 	line-height: 1.5;
@@ -116,12 +157,17 @@ a:hover, a:active {
 	border-color: #6b5dde;
 }
 
+.btn-primary {
+	background-color: #6a8ff7;
+	border-color: #6a8ff7;
+}
+
 .pagination {
 	display:flex;
 	justify-content:center;
 	align-items:center;
 	padding-left: 0;
-	margin: 20px 0;
+	margin: 40px 0;
 	text-align: center;
 	list-style: none;
 	}
@@ -149,4 +195,32 @@ a:hover, a:active {
 .pagination > li:last-child > span {
 	padding: 5px 12px;
 	border-radius: 15px;
+}
+
+.container-small {
+	max-width: 400px;
+	margin: 0 auto;
+	margin-top: 60px;
+}
+
+.form-control {
+	height: 42px;
+
+}
+
+.font-KI {
+	display: block;
+	font-family:Kristen ITC;
+	text-align: center;
+}
+
+.font-H {
+	font-family: 华文隶书;
+	font-size: 18px;
+}
+
+.font-Y {
+	display: block;
+	font-family:幼圆;
+	text-align: center;
 }

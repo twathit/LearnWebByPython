@@ -224,7 +224,7 @@ $(function () {
             return this.each(function () {
                 var
                     $form = $(this),
-                    $alert = $form && $form.find('.uk-alert-danger'),
+                    $alert = $form && $form.find('.alert-danger'),
                     fieldName = err && err.data;
                 if (! $form.is('form')) {
                     console.error('Cannot call showFormError() on non-form object.');
@@ -234,7 +234,7 @@ $(function () {
                 $form.find('select').removeClass('uk-form-danger');
                 $form.find('textarea').removeClass('uk-form-danger');
                 if ($alert.length === 0) {
-                    console.warn('Cannot find .uk-alert-danger element.');
+                    console.warn('Cannot find .alert-danger element.');
                     return;
                 }
                 if (err) {

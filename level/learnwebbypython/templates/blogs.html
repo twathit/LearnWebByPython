@@ -2,6 +2,9 @@
 {% block title %}日志{% endblock %}
 {% block beforehead %}
 <script>
+    $(function(){
+        $('ul.to-active li:first-child').addClass('active');
+    });
 </script>
 {% endblock %}
 {% block content %}

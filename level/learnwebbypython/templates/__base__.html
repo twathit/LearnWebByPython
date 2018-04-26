@@ -37,41 +37,43 @@
     {% block beforehead %}<!-- before head -->{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <div class="push">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="/" class="navbar-brand"></a>
+                </div>           
+                <ul class="nav navbar-nav to-active">
+                    <li><a href="/"><span class="glyphicon glyphicon-home"></span>日志</a></li>
+                    <li><a target="_blank" href="#"><span class="glyphicon glyphicon-film"></span>电影</a></li>
+                    <li><a target="_blank" href="#"><span class="glyphicon glyphicon-option-horizontal"></span>更多</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right t-active">
+                {% if __user__ %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>{{ __user__.name }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                            <li class="divider"></li>
+                            <li ><a href="/manage/blogs"><span class="glyphicon glyphicon-pencil"></span>编辑日志</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="/signin"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
+                    <li><a href="/register"><span class="glyphicon glyphicon-edit"></span>注册</a></li>
+                {% endif %}
+                </ul>
+            </div>
+        </nav>
         <div class="container">
-            <div class="navbar-header">
-                <a href="/" class="navbar-brand"></a>
-            </div>           
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span>日志</a></li>
-                <li><a target="_blank" href="#"><span class="glyphicon glyphicon-film"></span>电影</a></li>
-                <li><a target="_blank" href="#"><span class="glyphicon glyphicon-option-horizontal"></span>更多</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            {% if __user__ %}
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>{{ __user__.name }}</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
-                        <li class="divider"></li>
-                        <li ><a href="/manage/blogs"><span class="glyphicon glyphicon-pencil"></span>编辑日志</a></li>
-                    </ul>
-                </li>
-            {% else %}
-                <li><a href="/signin"><i class="fa fa-sign-in"></i>登录</a></li>
-                <li><a href="/register"><i class="fa fa-edit"></i>注册</a></li>
-            {% endif %}
-            </ul>
+            <div class="row">
+                {% block content %}
+                {% endblock %}
+            </div>        
         </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            {% block content %}
-            {% endblock %}
-        </div>        
     </div>
     <div class="footer">
-        <div class="container">
+        
             
                 <p>
                     <a target="_blank" href="https://github.com/twathit" class="fa fa-lg fa-github"></a>
@@ -82,7 +84,7 @@
                 <p>Powered by <a href="https://github.com/twathit">TWATHIT</a>. Copyright &copy; 2018.[<a href="/manage/" target="_blank">Manage</a>]</p>
                 <div><b>时间不逝，圆圈不圆</b></div>
             
-        </div>
+    
     </div>
 </body>
 </html>
