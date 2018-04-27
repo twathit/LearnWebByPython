@@ -224,7 +224,7 @@ $(function () {
             return this.each(function () {
                 var
                     $form = $(this),
-                    $alert = $form && $form.find('.alert-danger'),
+                    $alert = $form && $form.find('.alert-warning'),
                     fieldName = err && err.data;
                 if (! $form.is('form')) {
                     console.error('Cannot call showFormError() on non-form object.');
@@ -238,7 +238,8 @@ $(function () {
                     return;
                 }
                 if (err) {
-                    $alert.text(err.message ? err.message : (err.error ? err.error : err)).removeClass('uk-hidden').show();
+                    //$alert.text(err.message ? err.message : (err.error ? err.error : err)).removeClass('hidden').show();
+                    $alert.append('<span>'+err.message ? err.message : (err.error ? err.error : err)+'</span>').removeClass('hidden').show();
                     if (($alert.offset().top - 60) < $(window).scrollTop()) {
                         $('html,body').animate({ scrollTop: $alert.offset().top - 60 });
                     }
@@ -247,7 +248,7 @@ $(function () {
                     }
                 }
                 else {
-                    $alert.addClass('uk-hidden').hide();
+                    $alert.addClass('hidden').hide();
                     $form.find('.uk-form-danger').removeClass('uk-form-danger');
                 }
             });

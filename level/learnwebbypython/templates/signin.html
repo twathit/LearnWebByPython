@@ -23,11 +23,11 @@
                     $form.postJSON('api/authenticate',data,function(err,result){
                         if (!err){
                             var prevLink = document.referrer;
-                            if($.trim(prevLink)==''){
+                            if($.trim(prevLink)=='' || $.trim(prevLink).indexOf('register')!=-1){
                                 location.href = '/';
                             }
-                            if($.trim(prevLink)=='register'){
-                                location.href = '/';
+                            if($.trim(prevLink).indexOf('register')!=-1){
+                                console.log(prevLink);
                             }
                             else{
                                 location.href = prevLink;
@@ -94,8 +94,9 @@ $(function(){
     <div class="container-small">
         <h3><a href="/"><b class="font-KI">You Just Found Me!</b></a></h3>
         <form id="vm" v-on="submit: submit">
-            <div class="alert alert-danger uk-hidden" aria-hidden="true">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <div class="alert alert-warning alert-dismissible hidden">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
             </div>
             <div class="form-group">
                 <label class="font-H" for="for-email">Email</label>
@@ -106,7 +107,6 @@ $(function(){
                     <input v-model="email" name="email" type="text" placeholder="电子邮件" id="for-email" class="form-control">
                 </div>
             </div>
-            <div class="uk-alert uk-alert-danger uk-hidden"></div>
             <div class="form-group">
                 <label class="font-H" for="for-password">Password</label>
                 <div class="input-group">

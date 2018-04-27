@@ -121,7 +121,7 @@ def authenticate(*, email, password):
         raise APIValueError('password', 'Invalid password')
     users = yield from User.findAll('email=?', [email])
     if len(users) == 0:
-        raise APIValueError('email','Emial not exist.')
+        raise APIValueError('email','Email not exist.')
     user = users[0]
     sha1 = hashlib.sha1()
     sha1.update(user.id.encode('utf-8'))

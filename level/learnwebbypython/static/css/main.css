@@ -44,7 +44,7 @@ a:hover, a:active {
 	width: 100%;
 }
 
-.navbar-default .navbar-nav > li:hover~.navbar-default .navbar-nav > li:before {
+.navbar-default .navbar-nav > li:hover ~ li:before {
 	left: 0;
 }
 
@@ -109,6 +109,9 @@ a:hover, a:active {
 }
 
 .article .item:hover {
+	-webkit-transform: scale(1.01,1.01);
+	-ms-transform: scale(1.01,1.01);
+	-o-transform: scale(1.01,1.01);
 	transform: scale(1.01,1.01);
 }
 
@@ -126,7 +129,7 @@ a:hover, a:active {
 
 .article .item .title:hover {
 	color:#6b5dde;
-	font-size: 19px
+	font-size: 22px
 }
 
 .article .item .info {
