@@ -18,9 +18,11 @@
                     <span>{{blog.user_name}}</span>
                     <span class="status">发表于{{blog.created_at|datetime}}</span>
                 </div>
-                
+                <div class="content">
+                    <p>{{blog.content|summary}}</p>
+                </div>
                 <!--<p>{{blog.summary}}</p>-->
-                <p>{{blog.content|summary}}</p>
+                
                 <p><a href="/blog/{{blog.id}}">
                     <button class="btn btn-default">继续阅读<i class="fa fa-angle-double-right"></i></button>
                 </a></p>
@@ -45,9 +47,7 @@
                 <li class="list-group-item">
                     <i class="fa fa-external-link list"></i><a target="_blank" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a>
                 </li>
-            </ul>
-            
-            
+            </ul>            
         </div>
     </div>
 {% endblock %}

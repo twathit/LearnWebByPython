@@ -26,16 +26,16 @@ $(function () {
                 event.preventDefault();
                 var $form = $('#vm');
                 if (! this.name.trim()) {
-                    return $form.showFormError('请输入名字');
+                    return $form.showFormError({message:'请输入名字',data:'name'});
                 }
                 if (! validateEmail(this.email.trim().toLowerCase())) {
-                    return $form.showFormError('请输入正确的Email地址');
+                    return $form.showFormError({message:'请输入正确的Email地址',data:'email'});
                 }
                 if (this.password1.length < 6) {
-                    return $form.showFormError('口令长度至少为6个字符');
+                    return $form.showFormError({message:'口令长度至少为6个字符',data:'password1'});
                 }
                 if (this.password1 !== this.password2) {
-                    return $form.showFormError('两次输入的口令不一致');
+                    return $form.showFormError({message:'两次输入的口令不一致',data:'password2'});
                 }
                 var email = this.email.trim().toLowerCase();
                 $form.postJSON('/api/users', {
@@ -73,7 +73,7 @@ $(function () {
                     <div class="input-group-addon">
                         <i class="fa fa-user fa-fw"></i>
                     </div>
-                    <input v-model="name" type="text" id="for-name" placeholder="用户名" class="form-control">
+                    <input v-model="name" type="text" id="for-name" name="name" placeholder="用户名" class="form-control">
                 </div>
                 
             </div>
@@ -83,7 +83,7 @@ $(function () {
                     <div class="input-group-addon">
                         <i class="fa fa-envelope-o fa-fw"></i>
                     </div>
-                    <input v-model="email" type="text" id="for-email" placeholder="email@example.com" class="form-control">
+                    <input v-model="email" type="text" id="for-email" name="email" placeholder="email@example.com" class="form-control">
                 </div>
                 
             </div>
@@ -93,7 +93,7 @@ $(function () {
                     <div class="input-group-addon">
                         <i class="fa fa-key fa-fw"></i>
                     </div>
-                    <input v-model="password1" type="password" id="for-password" placeholder="输入密码" class="form-control">
+                    <input v-model="password1" type="password" id="for-password" name="password1" placeholder="输入密码" class="form-control">
                 </div>
                 
             </div>
@@ -103,7 +103,7 @@ $(function () {
                     <div class="input-group-addon">
                         <i class="fa fa-key fa-fw"></i>
                     </div>
-                    <input v-model="password2" type="password" id="for-password" placeholder="重复密码" class="form-control">
+                    <input v-model="password2" type="password" id="for-password" name="password2" placeholder="重复密码" class="form-control">
                 </div>
                 
             </div>

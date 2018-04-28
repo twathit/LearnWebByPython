@@ -225,14 +225,19 @@ $(function () {
                 var
                     $form = $(this),
                     $alert = $form && $form.find('.alert-warning'),
+                    /*
+                    var i=""&&"真值";//->i=""  
+                    i="真值"&&"其他真值";//->i="其他真值"  
+                    i="真值"&&"";//->i="" 
+                    */ 
                     fieldName = err && err.data;
                 if (! $form.is('form')) {
                     console.error('Cannot call showFormError() on non-form object.');
                     return;
                 }
-                $form.find('input').removeClass('uk-form-danger');
-                $form.find('select').removeClass('uk-form-danger');
-                $form.find('textarea').removeClass('uk-form-danger');
+                $form.find('input').removeClass('has-warning');
+                $form.find('select').removeClass('has-warning');
+                $form.find('textarea').removeClass('has-warning');
                 if ($alert.length === 0) {
                     console.warn('Cannot find .alert-danger element.');
                     return;
@@ -244,12 +249,12 @@ $(function () {
                         $('html,body').animate({ scrollTop: $alert.offset().top - 60 });
                     }
                     if (fieldName) {
-                        $form.find('[name=' + fieldName + ']').addClass('uk-form-danger');
+                        $form.find('[name=' + fieldName + ']').parent().addClass('has-warning');
                     }
                 }
                 else {
                     $alert.addClass('hidden').hide();
-                    $form.find('.uk-form-danger').removeClass('uk-form-danger');
+                    $form.find('.has-warning').removeClass('has-warning');
                 }
             });
         },
@@ -265,17 +270,17 @@ $(function () {
                     console.error('Cannot call showFormLoading() on non-form object.');
                     return;
                 }
-                if (!iconClass || iconClass.indexOf('uk-icon') < 0) {
-                    console.warn('Icon <i class="uk-icon-*>" not found.');
+                if (!iconClass || iconClass.indexOf('glyphicon') < 0) {
+                    console.warn('Icon <i class="glyphicon-*>" not found.');
                     return;
                 }
                 if (isLoading) {
                     $buttons.attr('disabled', 'disabled');
-                    $i && $i.addClass('uk-icon-spinner').addClass('uk-icon-spin');
+                    $i && $i.addClass('fa').addClass('fa-spinner').addClass('fa-pulse').addClass('fa-lg');
                 }
                 else {
                     $buttons.removeAttr('disabled');
-                    $i && $i.removeClass('uk-icon-spinner').removeClass('uk-icon-spin');
+                    $i && $i.removeClass('fa').removeClass('fa-spinner').removeClass('fa-pulse').removeClass('fa-lg');
                 }
             });
         },
