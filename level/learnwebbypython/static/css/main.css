@@ -2,6 +2,9 @@ html,body {
 	height: 100%;
 }
 
+body {
+	background: #f7f7f7;
+}
 
 a:hover, a:active {
     text-decoration: none;
@@ -33,6 +36,36 @@ a:hover, a:active {
 	margin-right: 2px;
 }
 
+.navbar-default {
+	background: #6a8ff7;
+}
+
+.navbar-brand {
+	padding: 0 0;
+
+}
+
+.navbar-default .navbar-nav {
+
+}
+
+
+.navbar-default .navbar-nav > li > a {
+	color: #fff;
+	border-radius: 0;
+
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+	color: #fff;
+}
+
+/* .navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover  {
+	background-color: #6a8ff7;
+} */
+
 .navbar-default .navbar-nav > li:before {
 	content: '';
 	position: absolute;
@@ -40,7 +73,7 @@ a:hover, a:active {
 	left: 100%;
 	width: 0;
 	height: 100%;
-	border-bottom: 1px solid #777;
+	border-bottom: 1px solid #fff;
 	transition: all 0.2s linear;
 }
 
@@ -54,12 +87,9 @@ a:hover, a:active {
 }
 
 .navbar-default .navbar-nav > li.active:before {
-	border-bottom: 0;
+	border-bottom: 1px;
 }
 
-.navbar-default .navbar-nav > li > a {
-	border-radius: 4px;
-}
 .navbar-default .navbar-nav > li + li {
 	margin-left: 2px;
 }
@@ -68,13 +98,16 @@ a:hover, a:active {
 .navbar-default .navbar-nav > li.active > a:hover,
 .navbar-default .navbar-nav > li.active > a:focus {
 	color: #fff;
+	border-radius: 0;
+	border-bottom: 1px solid #fff; 
 	background-color: #6a8ff7;
 }
 
 .navbar-brand {
 	background-image: url('../img/banana.jpg');
-	width: 60px;
-	background-size: 80%;
+	width: 50px;
+	border-radius: 5px;
+	background-size: 100%;
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: 10px;
@@ -274,4 +307,99 @@ a:hover, a:active {
 	display: block;
 	font-family:幼圆;
 	text-align: center;
+}
+
+.prompt {
+	text-align: center;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 10px 10px;
+	margin-top: 40px;
+}
+
+.comment {
+    margin-bottom: 15px;
+    padding: 10px;
+    /* border: 1px solid #ddd; */
+    border-radius: 4px;
+    background: #fff;
+    -webkit-box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
+	box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
+}
+
+.comment-heading {
+	background: #fafafa;
+	padding: 10px 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.comment-header {
+	background: #f0f0f0;
+	padding: 10px 10px;
+}
+
+.comment-avatar {
+	margin-right: 15px;
+	float: left;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.comment-title {
+	margin: 5px 0 0;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.comment-content {
+	padding-left: 70px;
+}
+
+.comment-meta {
+	color: #999;
+}
+
+.hr-dashed {
+	height: 0;
+	border-bottom: 1px dashed #ccc;
+	padding-left: 75px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.hr-solid {
+	border-bottom: 1px solid #eee;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.panel-default {
+	background: #fafafa;
+}
+
+.img-circle {
+	margin-top: 15px;
+}
+
+.center-text {
+	display: block;
+	text-align: center;
+}
+
+.breadcrumb {
+	padding: 15px 10px;
+	background: #fff;
+	border: 1px solid #ddd;
+}
+
+.panel-order {
+	margin-top: 20px;
+	padding: 10px 10px;
+	background: #fff;
+	-webkit-box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
+	box-shadow: 0 0 3px 1px rgba(0,0,0,.2);
 }

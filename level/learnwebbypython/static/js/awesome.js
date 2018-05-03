@@ -364,12 +364,12 @@ if (typeof(Vue)!=='undefined') {
         return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes();
     });
     Vue.component('pagination', {
-        template: '<ul class="uk-pagination">' +
-                '<li v-if="! has_previous" class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>' +
-                '<li v-if="has_previous"><a v-attr="onclick:\'gotoPage(\' + (page_index-1) + \')\'" href="#0"><i class="uk-icon-angle-double-left"></i></a></li>' +
-                '<li class="uk-active"><span v-text="page_index"></span></li>' +
-                '<li v-if="! has_next" class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>' +
-                '<li v-if="has_next"><a v-attr="onclick:\'gotoPage(\' + (page_index+1) + \')\'" href="#0"><i class="uk-icon-angle-double-right"></i></a></li>' +
+        template: '<ul class="pagination">' +
+                '<li v-if="! has_previous" class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>' +
+                '<li v-if="has_previous"><a v-attr="onclick:\'gotoPage(\' + (page_index-1) + \')\'" href="#0"><i class="fa fa-angle-double-left"></i></a></li>' +
+                '<li class="active"><span v-text="page_index"></span></li>' +
+                '<li v-if="! has_next" class="disabled"><span><i class="fa fa-angle-double-right"></i></span></li>' +
+                '<li v-if="has_next"><a v-attr="onclick:\'gotoPage(\' + (page_index+1) + \')\'" href="#0"><i class="fa fa-angle-double-right"></i></a></li>' +
             '</ul>'
     });
 }

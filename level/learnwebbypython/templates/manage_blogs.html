@@ -25,8 +25,10 @@ function initVM(data){
             }
         }
     });
-    $('#vm').show();
 }
+$(function(){
+        $('ul.to-active li:nth-child(2)').addClass('active');
+    });
 $(function(){
     getJSON('/api/blogs',{
         page:{{page_index}}
@@ -41,49 +43,49 @@ $(function(){
 </script>
 {% endblock %}
 {% block content %}
-    <div class="uk-width-1-1 uk-margin-bottom">
-        <div class="uk-panel uk-panel-box">
-            <ul class="uk-breadcrumb">
-                <li><a href="/manage/comments">评论</a></li>
-                <li class="uk-active"><span>日志</span></li>
-                <li><a href="/manage/users">用户</a></li>
-            </ul>
+    <div class="col-xs-12">
+        <ul class="breadcrumb">
+            <li><a href="/manage/comments">评论</a></li>
+            <li class="active"><span>日志</span></li>
+            <li><a href="/manage/users">用户</a></li>
+        </ul>
+    </div>
+    <div id="error" class="col-xs-12">
+    </div>
+    <div id="loading" class="col-xs-12 center-text">
+        <span><i class="fa fa-spinner fa-pulse fa-lg"></i>正在加载...</span>
+    </div>
+    <div id="vm" class="col-xs-12">
+        <a href="/manage/blogs/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>新日志</a>
+        <div class="panel panel-order">                   
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-xs-5">标题/摘要</th>
+                        <th class="col-xs-2">作者</th>
+                        <th class="col-xs-3">创建时间</th>
+                        <th class="col-xs-2">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-repeat="blog:blogs">
+                        <td>
+                            <a target="_blank" v-attr="href:'/blog/'+blog.id" v-text="blog.name"></a>
+                        </td>
+                        <td>
+                            <a target="_blank" v-attr="href:'/blog/'+blog.user_id" v-text="blog.user_name"></a>
+                        </td>
+                        <td>
+                            <span v-text="blog.created_at.toDateTime()"></span>
+                        </td>
+                        <td>
+                            <a href="#0" v-on="click:edit_blog(blog)"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="#0" v-on="click:delete_blog(blog)"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div id="error" class="uk-width-1-1">
-    </div>
-    <div id="loading" class="uk-width-1-1 uk-text-center">
-        <span><i class="uk-icon-spinner uk-icon-medium uk-icon-spin"></i>正在加载...</span>
-    </div>
-    <div id="vm" class="uk-width-1-1">
-        <a href="/manage/blogs/create" class="uk-button uk-button-primary"><i class="uk-icon-plus"></i>新日志</a>
-        <table class="uk-table uk-table-hover">
-            <thead>
-                <tr>
-                    <th class="uk-width-5-10">标题/摘要</th>
-                    <th class="uk-width-2-10">作者</th>
-                    <th class="uk-width-2-10">创建时间</th>
-                    <th class="uk-width-1-10">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-repeat="blog:blogs">
-                    <td>
-                        <a target="_blank" v-attr="href:'/blog/'+blog.id" v-text="blog.name"></a>
-                    </td>
-                    <td>
-                        <a target="_blank" v-attr="href:'/blog/'+blog.user_id" v-text="blog.user_name"></a>
-                    </td>
-                    <td>
-                        <span v-text="blog.created_at.toDateTime()"></span>
-                    </td>
-                    <td>
-                        <a href="#0" v-on="click:edit_blog(blog)"><i class="uk-icon-edit"></i></a>
-                        <a href="#0" v-on="click:delete_blog(blog)"><i class="uk-icon-trash-o"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
         <div v-component="pagination" v-with="page"></div>
     </div>
 {% endblock %}
