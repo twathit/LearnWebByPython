@@ -32,7 +32,7 @@ $(function() {
         <ul class="breadcrumb">
             <li><a href="/manage/comments">评论</a></li>
             <li><a href="/manage/blogs">日志</a></li>
-            <li class="uk-active"><span>用户</span></li>
+            <li class="active"><span>用户</span></li>
         </ul>
     </div>
     <div id="error" class="col-xs-12">
@@ -54,7 +54,7 @@ $(function() {
                     <tr v-repeat="user:users">
                         <td>
                             <span v-text="user.name"></span>
-                            <span v-if="user.admin" style="color:#d05"><i class="glyphicon glyphicon-lock"></i>管理员</span>
+                            <span v-if="user.admin" style="color:#d05"><i class="glyphicon glyphicon-lock"></i>(管理员)</span>
                         </td>
                         <td>
                             <a v-attr="href:'mailto:'+user.email" v-text="user.email"></a>

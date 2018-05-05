@@ -403,13 +403,13 @@ function _bindSubmit($form) {
             $submit = $form.find('button[type=submit]'),
             $i = $submit.find('i'),
             iconClass = $i.attr('class');
-        if (!iconClass || iconClass.indexOf('uk-icon') < 0) {
+        if (!iconClass || iconClass.indexOf('glyphicon') < 0) {
             $i = undefined;
         }
         $submit.attr('disabled', 'disabled');
-        $i && $i.addClass('uk-icon-spinner').addClass('uk-icon-spin');
+        $i && $i.addClass('fa').addClass('fa-spinner').addClass('fa-pulse').addClass('fa-lg');
         postJSON($form.attr('action-url'), data, function (err, result) {
-            $i && $i.removeClass('uk-icon-spinner').removeClass('uk-icon-spin');
+            $i && $i.removeClass('fa').removeClass('fa-spinner').removeClass('fa-pulse').removeClass('fa-lg');
             if (err) {
                 console.log('postJSON failed: ' + JSON.stringify(err));
                 $submit.removeAttr('disabled');
@@ -437,7 +437,7 @@ $(function () {
 
 $(function() {
     if (location.pathname === '/' || location.pathname.indexOf('/blog')===0) {
-        $('li[data-url=blogs]').addClass('uk-active');
+        $('li[data-url=blogs]').addClass('active');
     }
 });
 
@@ -446,7 +446,7 @@ function _display_error($obj, err) {
         $obj.hide();
     }
     var msg = err.message || String(err);
-    var L = ['<div class="uk-alert uk-alert-danger">'];
+    var L = ['<div class="alert alert-warning">'];
     L.push('<p>Error: ');
     L.push(msg);
     L.push('</p><p>Code: ');

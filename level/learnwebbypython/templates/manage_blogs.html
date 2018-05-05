@@ -47,7 +47,7 @@ $(function(){
         <ul class="breadcrumb">
             <li><a href="/manage/comments">评论</a></li>
             <li class="active"><span>日志</span></li>
-            <li><a href="/manage/users">用户</a></li>
+            <li v-if="user.admin"><a href="/manage/users">用户</a></li>
         </ul>
     </div>
     <div id="error" class="col-xs-12">

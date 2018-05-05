@@ -13,8 +13,11 @@ COOKIE_NAME = 'awesession'
 _COOKIE_KEY = configs.session.secret
 
 def check_admin(request):
-    if request.__user__ is None:           #or not request.__user__.admin:
-        raise APIPermissionError()
+    if not request.__user__.admin:            
+        if request.__user__ is None:
+            raise APIPermissionError()
+    else:
+        return true
 
 def get_page_index(page_str):
     p = 1
@@ -48,6 +51,7 @@ def cookie2user(cookie_str):
         if int(expires) < time.time():
             return None
         user = yield from User.find(uid)
+        logging.info(user)
         if user is None:
             return None
         s = '%s-%s-%s-%s' % (uid, user.password, expires, _COOKIE_KEY)
@@ -245,7 +249,7 @@ def api_register_user(*, email, name, password):
         raise APIError('register:failed', 'email', 'Email is already in use.')
     uid = next_id()
     sha1_password = '%s:%s' % (uid, password)
-    user = User(id=uid, name=name.strip(), email=email, password=hashlib.sha1(sha1_password.encode('utf-8')).hexdigest(),  image='http://www.gravatar.com/avatar/%s?d=mm&s=120' % hashlib.md5(email.encode('utf-8')).hexdigest())
+    user = User(id=uid, name=name.strip(), email=email, password=hashlib.sha1(sha1_password.encode('utf-8')).hexdigest(), image='http://www.gravatar.com/avatar/%s?d=mm&s=120' % hashlib.md5(email.encode('utf-8')).hexdigest())
     yield from user.save()
     r = web.Response()
     r.set_cookie(COOKIE_NAME, user2cookie(user, 86400), max_age=86400, httponly=True)
