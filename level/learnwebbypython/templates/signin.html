@@ -44,7 +44,7 @@
 {% block content %}
     <div class="container-small">
         <h3><a href="/"><b class="font-KI">You Just Found Me!</b></a></h3>
-        <form id="vm" v-on="submit: submit">
+        <form id="vm">
             <div class="alert alert-warning alert-dismissible hidden">
                 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit"  class="btn btn-block btn-primary"><i class="glyphicon glyphicon-log-in"></i>登录</button>
+                <button type="submit" v-on:click="submit" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-log-in"></i>登录</button>
             </div>
         </form>
         <p>没有账号？不<a href="/register">注册</a>一下吗 </p>

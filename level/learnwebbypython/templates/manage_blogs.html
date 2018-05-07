@@ -7,7 +7,8 @@ function initVM(data){
         el:'#vm',
         data:{
             blogs:data.blogs,
-            page:data.page
+            page:data.page,
+            page_index:{{page_index}}
         },
         methods:{
             edit_blog:function (blog){
@@ -30,8 +31,8 @@ $(function(){
         $('ul.to-active li:nth-child(2)').addClass('active');
     });
 $(function(){
-    getJSON('/api/blogs',{
-        page:{{page_index}}
+    getJSON('/api/userblogs',{
+        user_name:{{user}}
     },function (err,results){
         if (err){
             return fatal(err);
@@ -47,7 +48,9 @@ $(function(){
         <ul class="breadcrumb">
             <li><a href="/manage/comments">评论</a></li>
             <li class="active"><span>日志</span></li>
+            {% if __user__.admin %}
             <li v-if="user.admin"><a href="/manage/users">用户</a></li>
+            {% endif %}
         </ul>
     </div>
     <div id="error" class="col-xs-12">
@@ -68,24 +71,25 @@ $(function(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-repeat="blog:blogs">
+                    <tr v-for="blog in blogs">
                         <td>
-                            <a target="_blank" v-attr="href:'/blog/'+blog.id" v-text="blog.name"></a>
+                            <a target="_blank" v-bind:href="'/blog/'+blog.id" v-text="blog.name"></a>
                         </td>
                         <td>
-                            <a target="_blank" v-attr="href:'/blog/'+blog.user_id" v-text="blog.user_name"></a>
+                            <a target="_blank" v-bind:href="'/blog/'+blog.user_id" v-text="blog.user_name"></a>
                         </td>
                         <td>
                             <span v-text="blog.created_at.toDateTime()"></span>
                         </td>
                         <td>
-                            <a href="#0" v-on="click:edit_blog(blog)"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="#0" v-on="click:delete_blog(blog)"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a href="#0" v-on:click="edit_blog(blog)"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="#0" v-on:click="delete_blog(blog)"><i class="glyphicon glyphicon-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div v-component="pagination" v-with="page"></div>
+        <!-- <div v-component="pagination" v-with="page"></div> -->
+        <pagination v-bind:page="page" v-bind:page_index="page_index"></pagination>
     </div>
 {% endblock %}
