@@ -18,7 +18,7 @@ $(function() {
         el:'#vm',
         methods:{
             edit_blog:function (blog){
-                location.assign('/manage/blogs/edit?id='+blog.id);
+                location.assign('/manage/blogs/edit?id={{blog.id}}');
             }
         }
     });
@@ -55,7 +55,7 @@ $(function () {
                 
                 {% if __user__ %}
                 <div id="vm">
-                    <a href="#" v-on="click:edit_blog(blog)">
+                    <a href="#" v-on:click="edit_blog(blog)">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
                 </div>

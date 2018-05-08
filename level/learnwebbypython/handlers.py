@@ -152,19 +152,29 @@ def signout(request):
 def manage():
     return 'redirect:/manage/comments'
 
-@get('/manage/comments')
-def manage_comments(*, page='1'):
+# @get('/manage/comments')
+# def manage_comments(*, page='1'):
+#     return {
+#         '__template__': 'manage_comments.html',
+#         'page_index': get_page_index(page)
+#     }
+
+@get('/manage/comments/{name}')
+def manage_comments(*,name, page='1'):
+    user = yield from User.findAll('name=?',[name])
     return {
         '__template__': 'manage_comments.html',
-        'page_index': get_page_index(page)
+        'page_index': get_page_index(page),
+        'user':user
     }
 
 @get('/manage/blogs/{name}')
 def manage_blogs(*,name, page='1'):
+    user = yield from User.findAll('name=?',[name])
     return {
         '__template__': 'manage_blogs.html',
         'page_index': get_page_index(page),
-        'user':name
+        'user':user
     }
 
 @get('/manage/blogs/create')
@@ -182,11 +192,20 @@ def manage_edit_blog(*, id):
         'id': id,
         'action': '/api/blogs/%s' % id
     }
-@get('/manage/users')
-def manage_users(*, page='1'):
+# @get('/manage/users')
+# def manage_users(*, page='1'):
+#     return {
+#         '__template__': 'manage_users.html',
+#         'page_index': get_page_index(page)
+#     }
+
+@get('/manage/users/{name}')
+def manage_users(*,name, page='1'):
+    user = yield from User.findAll('name=?',[name])
     return {
         '__template__': 'manage_users.html',
-        'page_index': get_page_index(page)
+        'page_index': get_page_index(page),
+        'user':user
     }
 
 @get('/api/comments')
@@ -275,9 +294,24 @@ def api_get_blog(*, id):
     return blog
 
 @get('/api/userblogs')
-def api_get_blog(*,user_name):
-    blog= yield from Blog.find(user_name)
-    return blog
+def api_get_userblog(*,user_name, page='1'):
+    page_index = get_page_index(page)
+    num = yield from Blog.findNumber('count(id)')
+    p = Page(num, page_index)
+    if num == 0:
+        return dict(page=p, blogs=())
+    blogs = yield from Blog.findAll('user_name=?',[user_name], orderBy='created_at desc', limit=(p.offset, p.limit))
+    return dict(page=p, blogs=blogs)
+
+@get('/api/usercomments')
+def api_get_usercomment(*,user_name, page='1'):
+    page_index = get_page_index(page)
+    num = yield from Comment.findNumber('count(id)')
+    p = Page(num, page_index)
+    if num == 0:
+        return dict(page=p, blogs=())
+    comments = yield from Comment.findAll('user_name=?',[user_name], orderBy='created_at desc', limit=(p.offset, p.limit))
+    return dict(page=p, comments=comments)
 
 @post('/api/blogs')
 def api_create_blog(request, *, name, summary, content):

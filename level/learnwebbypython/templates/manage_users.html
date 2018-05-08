@@ -15,24 +15,34 @@ function initVM(data){
 $(function(){
         $('ul.to-active li:nth-child(2)').addClass('active');
     });
-$(function() {
-    getJSON('/api/users',{
-        page:{{ page_index }}
-    },function(err,results){
-        if (err){
-            return fatal(err);
-        }
-        $('#loading').hide();
-        initVM(results);
-    });
+// $(function() {
+//     getJSON('/api/users',{
+//         page:{{ page_index }}
+//     },function(err,results){
+//         if (err){
+//             return fatal(err);
+//         }
+//         $('#loading').hide();
+//         initVM(results);
+//     });
+// });
+$(function(){
+    $.ajax({type:'get',
+        url:'/api/users?page={{page_index}}'
+    }).done(function(results){
+       $('#loading').hide();
+        initVM(results); 
+    }).fail(function (jqXHR, textStatus) {
+    ajaxLog('失败: ' + jqXHR.status + ', 原因: ' + textStatus);}
+    )
 });
 </script>
 {% endblock %}
 {% block content %}
     <div class="col-xs-12">
         <ul class="breadcrumb">
-            <li><a href="/manage/comments">评论</a></li>
-            <li><a href="/manage/blogs">日志</a></li>
+            <li><a href="/manage/comments/{{user[0].name}}">评论</a></li>
+            <li><a href="/manage/blogs/{{user[0].name}}">日志</a></li>
             <li class="active"><span>用户</span></li>
         </ul>
     </div>

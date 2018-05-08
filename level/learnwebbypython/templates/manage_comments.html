@@ -28,16 +28,26 @@ function initVM(data){
 $(function(){
         $('ul.to-active li:nth-child(2)').addClass('active');
     });
-$(function() {
-    getJSON('/api/comments',{
-        page:{{ page_index }}
-    },function(err,results){
-        if (err){
-            return fatal(err);
-        }
-        $('#loading').hide();
-        initVM(results);
-    });
+// $(function() {
+//     getJSON('/api/comments',{
+//         page:{{ page_index }}
+//     },function(err,results){
+//         if (err){
+//             return fatal(err);
+//         }
+//         $('#loading').hide();
+//         initVM(results);
+//     });
+// });
+$(function(){
+    $.ajax({type:'get',
+        url:'/api/usercomments?user_name={{user[0].name}}&page={{page_index}}'
+    }).done(function(results){
+       $('#loading').hide();
+        initVM(results); 
+    }).fail(function (jqXHR, textStatus) {
+    ajaxLog('失败: ' + jqXHR.status + ', 原因: ' + textStatus);}
+    )
 });
 </script>
 {% endblock %}
@@ -45,8 +55,10 @@ $(function() {
     <div class="col-xs-12">
         <ul class="breadcrumb">
             <li class="active"><span>评论</span></li>
-            <li><a href="/manage/blogs">日志</a></li>
-            <li><a href="/manage/users">用户</a></li>
+            <li><a href="/manage/blogs/{{user[0].name}}">日志</a></li>
+            {% if __user__.admin %}
+            <li><a href="/manage/users/{{user[0].name}}">用户</a></li>
+            {% endif %}
         </ul>
     </div>
     <div id="error" class="col-xs-12">
@@ -78,6 +90,11 @@ $(function() {
                         </td>
                         <td>
                             <a href="#0" v-on:click="delete_comment(comment)"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr v-show="comments.length===0">
+                        <td colspan="4" class="text-center text-muted">
+                            <p>暂无数据...</p>
                         </td>
                     </tr>
                 </tbody>

@@ -30,26 +30,37 @@ function initVM(data){
 $(function(){
         $('ul.to-active li:nth-child(2)').addClass('active');
     });
+// $(function(){
+//     getJSON('/api/userblogs',{
+//         user_name:{{user[0].name}},
+//         page:{{page_index}}
+//     },function (err,results){
+//         if (err){
+//             return fatal(err);
+//         }
+//         $('#loading').hide();
+//         initVM(results);
+//     });
+// });
 $(function(){
-    getJSON('/api/userblogs',{
-        user_name:{{user}}
-    },function (err,results){
-        if (err){
-            return fatal(err);
-        }
-        $('#loading').hide();
-        initVM(results);
-    });
+    $.ajax({type:'get',
+        url:'/api/userblogs?user_name={{user[0].name}}&page={{page_index}}'
+    }).done(function(results){
+       $('#loading').hide();
+        initVM(results); 
+    }).fail(function (jqXHR, textStatus) {
+    ajaxLog('失败: ' + jqXHR.status + ', 原因: ' + textStatus);}
+    )
 });
 </script>
 {% endblock %}
 {% block content %}
     <div class="col-xs-12">
         <ul class="breadcrumb">
-            <li><a href="/manage/comments">评论</a></li>
+            <li><a href="/manage/comments/{{user[0].name}}">评论</a></li>
             <li class="active"><span>日志</span></li>
             {% if __user__.admin %}
-            <li v-if="user.admin"><a href="/manage/users">用户</a></li>
+            <li><a href="/manage/users/{{user[0].name}}">用户</a></li>
             {% endif %}
         </ul>
     </div>
@@ -84,6 +95,11 @@ $(function(){
                         <td>
                             <a href="#0" v-on:click="edit_blog(blog)"><i class="glyphicon glyphicon-edit"></i></a>
                             <a href="#0" v-on:click="delete_blog(blog)"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr v-show="blogs.length===0">
+                        <td colspan="4" class="text-center text-muted">
+                            <p>暂无数据...</p>
                         </td>
                     </tr>
                 </tbody>
