@@ -18,7 +18,7 @@ $(function() {
         el:'#vm',
         methods:{
             edit_blog:function (blog){
-                location.assign('/manage/blogs/edit?id={{blog.id}}');
+                location.assign('/manage/blog/edit?id={{blog.id}}');
             }
         }
     });
@@ -55,7 +55,7 @@ $(function () {
                 
                 {% if __user__ %}
                 <div id="vm">
-                    <a href="#" v-on:click="edit_blog(blog)">
+                    <a href="#" v-on:click="edit_blog({{blog}})">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
                 </div>
@@ -118,7 +118,8 @@ $(function () {
     <div class="col-xs-3">
         <div class="panel panel-default">
                 <img class="img-responsive img-circle center-block" src="{{ blog.user_image }}">
-                <h3 class="center-text">{{ blog.user_name }}</h3>
+                <h3 class="text-center">{{ blog.user_name }}</h3>
+                <div class="text-center">{{ user.created_at|datetime }}</div>
             
         </div>
         <div class="panel panel-info">

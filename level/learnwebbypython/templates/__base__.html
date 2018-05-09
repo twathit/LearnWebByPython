@@ -37,6 +37,9 @@
     {% block beforehead %}<!-- before head -->{% endblock %}
 </head>
 <body>
+    <div id="top">
+        <a href="javascript:;" title="返回顶部"></a>
+    </div>
     <div class="push">
         <nav class="navbar navbar-default">
             <div class="container">
@@ -53,10 +56,11 @@
                 {% if __user__ %}
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>{{ __user__.name }}</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>
+                        <ul class="dropdown-menu">                            
+                            <li ><a href="/manage/blogs/{{__user__.name}}"><span class="glyphicon glyphicon-user"></span>我的</a></li>
+                            <li ><a href="/manage/blog/create"><span class="glyphicon glyphicon-plus"></span>新日志</a></li>
                             <li class="divider"></li>
-                            <li ><a href="/manage/blogs"><span class="glyphicon glyphicon-pencil"></span>编辑日志</a></li>
+                            <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span>登出</a></li>                            
                         </ul>
                     </li>
                 {% else %}
@@ -73,9 +77,7 @@
             </div>        
         </div>
     </div>
-    <div class="footer">
-        
-            
+    <div class="footer">                    
                 <p>
                     <a target="_blank" href="https://github.com/twathit" class="fa fa-lg fa-github"></a>
                     <a target="_blank" href="#" class="fa fa-lg fa-google"></a>
@@ -88,5 +90,19 @@
     
     </div>
     <script type="text/javascript" src="/static/js/canvas-nest.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(window).scroll(function(){
+                if ($(window).scrollTop()>=300){
+                    $('#top').fadeIn(500);
+                }else{
+                    $('#top').fadeOut(500);
+                }
+            });
+            $('#top').click(function(){
+                $('html,body').animate({scrollTop:'0px'},800);
+            });
+        });
+    </script>
 </body>
 </html>

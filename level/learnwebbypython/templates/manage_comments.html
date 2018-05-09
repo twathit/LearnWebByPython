@@ -41,7 +41,7 @@ $(function(){
 // });
 $(function(){
     $.ajax({type:'get',
-        url:'/api/usercomments?user_name={{user[0].name}}&page={{page_index}}'
+        url:'/api/usercomments?user_name={{__user__.name}}&page={{page_index}}'
     }).done(function(results){
        $('#loading').hide();
         initVM(results); 
@@ -55,9 +55,9 @@ $(function(){
     <div class="col-xs-12">
         <ul class="breadcrumb">
             <li class="active"><span>评论</span></li>
-            <li><a href="/manage/blogs/{{user[0].name}}">日志</a></li>
+            <li><a href="/manage/blogs/{{__user__.name}}">日志</a></li>
             {% if __user__.admin %}
-            <li><a href="/manage/users/{{user[0].name}}">用户</a></li>
+            <li><a href="/manage/users/{{__user__.name}}">用户</a></li>
             {% endif %}
         </ul>
     </div>

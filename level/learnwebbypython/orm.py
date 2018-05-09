@@ -183,6 +183,33 @@ class Model(dict, metaclass=ModelMetaclass):
 
     @classmethod
     @asyncio.coroutine
+    def findFirst(cls, where=None, args=None, **kw):
+        sql = [cls.__select__]
+        if where:
+            sql.append('where')
+            sql.append(where)
+        if args is None:
+            args = []
+        orderBy = kw.get('orderBy', None)
+        if orderBy:
+            sql.append('order by')
+            sql.append(orderBy)
+        limit = kw.get('limit', None)
+        if limit is not None:
+            sql.append('limit')
+            if isinstance(limit, int):
+                sql.append('?')
+                args.append(limit)
+            elif isinstance(limit, tuple) and len(limit) == 2:
+                sql.append('?,?')
+                args.extend(limit)
+            else:
+                raise ValueError('Invalid limit value:%s'%str(limit))
+        rs = yield from select(' '.join(sql), args)
+        return rs[0]
+
+    @classmethod
+    @asyncio.coroutine
     def findNumber(cls, selectField, where=None, args=None):
         sql = ['select %s _num_ from `%s`' % (selectField, cls.__table__)]
         if where:

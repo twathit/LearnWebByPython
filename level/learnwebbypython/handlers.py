@@ -17,7 +17,7 @@ def check_admin(request):
         if request.__user__ is None:
             raise APIPermissionError()
     else:
-        return true
+        return True
 
 def get_page_index(page_str):
     p = 1
@@ -95,6 +95,8 @@ def index(*, page='1'):
 @get('/blog/{id}')
 def get_blog(id):
     blog = yield from Blog.find(id)
+    user_name = blog.user_name
+    user = yield from User.findFirst('name=?',[user_name])
     comments = yield from Comment.findAll('blog_id=?', [id], orderBy='created_at desc')
     for c in comments:
         c.html_content = text2html(c.content)
@@ -102,7 +104,8 @@ def get_blog(id):
     return {
         '__template__': 'blog.html',
         'blog': blog,
-        'comments': comments
+        'comments': comments,
+        'user':user
     }
 
 @get('/register')
@@ -161,7 +164,7 @@ def manage():
 
 @get('/manage/comments/{name}')
 def manage_comments(*,name, page='1'):
-    user = yield from User.findAll('name=?',[name])
+    user = yield from User.findFirst('name=?',[name])
     return {
         '__template__': 'manage_comments.html',
         'page_index': get_page_index(page),
@@ -170,14 +173,14 @@ def manage_comments(*,name, page='1'):
 
 @get('/manage/blogs/{name}')
 def manage_blogs(*,name, page='1'):
-    user = yield from User.findAll('name=?',[name])
+    user = yield from User.findFirst('name=?',[name])
     return {
         '__template__': 'manage_blogs.html',
         'page_index': get_page_index(page),
         'user':user
     }
 
-@get('/manage/blogs/create')
+@get('/manage/blog/create')
 def manage_create_blog():
     return {
         '__template__': 'manage_blog_edit.html',
@@ -185,7 +188,7 @@ def manage_create_blog():
         'action': '/api/blogs'
     }
 
-@get('/manage/blogs/edit')
+@get('/manage/blog/edit')
 def manage_edit_blog(*, id):
     return {
         '__template__': 'manage_blog_edit.html',
@@ -201,7 +204,7 @@ def manage_edit_blog(*, id):
 
 @get('/manage/users/{name}')
 def manage_users(*,name, page='1'):
-    user = yield from User.findAll('name=?',[name])
+    user = yield from User.findFirst('name=?',[name])
     return {
         '__template__': 'manage_users.html',
         'page_index': get_page_index(page),

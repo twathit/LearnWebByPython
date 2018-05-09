@@ -12,7 +12,7 @@ function initVM(data){
         },
         methods:{
             edit_blog:function (blog){
-                location.assign('/manage/blogs/edit?id='+blog.id);
+                location.assign('/manage/blog/edit?id='+blog.id);
             },
             delete_blog:function(blog){
                 if (confirm('确认要删除“'+'blog.name'+'”？删除后不可恢复！')){
@@ -44,7 +44,7 @@ $(function(){
 // });
 $(function(){
     $.ajax({type:'get',
-        url:'/api/userblogs?user_name={{user[0].name}}&page={{page_index}}'
+        url:'/api/userblogs?user_name={{__user__.name}}&page={{page_index}}'
     }).done(function(results){
        $('#loading').hide();
         initVM(results); 
@@ -57,10 +57,10 @@ $(function(){
 {% block content %}
     <div class="col-xs-12">
         <ul class="breadcrumb">
-            <li><a href="/manage/comments/{{user[0].name}}">评论</a></li>
+            <li><a href="/manage/comments/{{__user__.name}}">评论</a></li>
             <li class="active"><span>日志</span></li>
             {% if __user__.admin %}
-            <li><a href="/manage/users/{{user[0].name}}">用户</a></li>
+            <li><a href="/manage/users/{{__user__.name}}">用户</a></li>
             {% endif %}
         </ul>
     </div>
@@ -70,7 +70,7 @@ $(function(){
         <span><i class="fa fa-spinner fa-pulse fa-lg"></i>正在加载...</span>
     </div>
     <div id="vm" class="col-xs-12">
-        <a href="/manage/blogs/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>新日志</a>
+        <a href="/manage/blog/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>新日志</a>
         <div class="panel panel-order">                   
             <table class="table table-hover">
                 <thead>
