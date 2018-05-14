@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Edward'
 import time,uuid
-from orm import Model,StringField,BooleanField,FloatField,TextField
+from orm import Model,StringField,BooleanField,FloatField,TextField,IntegerField
 
 def next_id():
     return '%015d%s000' % (int(time.time()*1000), uuid.uuid4().hex)
@@ -26,6 +26,7 @@ class Blog(Model):
     name = StringField(column_type='varchar(50)')
     summary = StringField(column_type='varchar(200)')
     content = TextField()
+    count = IntegerField()
     created_at = FloatField(default=time.time)
 
 class Comment(Model):

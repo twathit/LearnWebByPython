@@ -16,7 +16,7 @@
                 <div class="info">
                     <span class="avatar"><img src="{{blog.user_image}}"></span>
                     <span>{{blog.user_name}}</span>
-                    <span class="status">发表于{{blog.created_at|datetime}}|阅读量{{blog.count}}</span>
+                    <span class="status">发表于{{blog.created_at|datetime}}</span>
                 </div>
                 <div class="content">
                     <p>{{blog.content|summary}}</p>
@@ -29,7 +29,7 @@
             </div>
         </article>
     {% endfor %}
-    {{ pagination('/?page=',page) }}
+    {{ pagination('/blogs/{{tag}}?page=',page) }}
     </div>
     <div class="col-xs-3">
         <div class="panel panel-info">

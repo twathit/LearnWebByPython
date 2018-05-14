@@ -92,9 +92,27 @@ def index(*, page='1'):
             'blogs': blogs
         }
 
+@get('/blogs/{tag}')
+def get_blog(*,tag, page='1'):
+    page_index = get_page_index(page)
+    num = yield from Blog.findNumber('count(id)')
+    page = Page(num, page_index)
+    if num == 0:
+        blogs = []
+    else:
+        blogs = yield from Blog.findAll(orderBy='created_at desc', limit=(page.offset, page.limit))
+    return {
+            '__template__': 'blogs.html',
+            'page': page,
+            'blogs': blogs
+        }
+
+
 @get('/blog/{id}')
 def get_blog(id):
     blog = yield from Blog.find(id)
+    blog.count+=1
+    yield from blog.update()
     user_name = blog.user_name
     user = yield from User.findFirst('name=?',[user_name])
     comments = yield from Comment.findAll('blog_id=?', [id], orderBy='created_at desc')

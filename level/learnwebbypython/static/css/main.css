@@ -33,7 +33,7 @@ a:hover, a:active {
 }
 
 .glyphicon {
-	margin-right: 2px;
+	margin-right: 5px;
 }
 
 .navbar-default {
@@ -425,4 +425,18 @@ a:hover, a:active {
 	background-image: url('../img/resizeApi.png');
 	background-size: 50%;
 	background-repeat: no-repeat;
+}
+
+.tags .btn-tags {
+	padding: 3px 10px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.tags .btn-round {
+	border-radius: 50px;
+}
+
+.text-sm {
+	font-size: 10px;
 }
