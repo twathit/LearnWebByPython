@@ -100,9 +100,9 @@ def get_blog(*,tag, page='1'):
     if num == 0:
         blogs = []
     else:
-        blogs = yield from Blog.findAll(orderBy='created_at desc', limit=(page.offset, page.limit))
+        blogs = yield from Blog.findAll('tag_name=?', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
     return {
-            '__template__': 'blogs.html',
+            '__template__': 'tag_blogs.html',
             'page': page,
             'blogs': blogs
         }
@@ -348,7 +348,7 @@ def api_create_blog(request, *, name, summary, content):
     return blog
 
 @post('/api/blogs/{id}')
-def api_update_blog(id, request, *, name, summary, content):
+def api_update_blog(id, request, *, name, summary, content,tag):
     check_admin(request)
     blog = yield from Blog.find(id)
     if not name or not name.strip():
@@ -360,6 +360,7 @@ def api_update_blog(id, request, *, name, summary, content):
     blog.name = name.strip()
     blog.summary = summary.strip()
     blog.content = content.strip()
+    blog.tag_name = tag.strip()
     yield from blog.update()
     return blog
 

@@ -13,10 +13,11 @@
         <article class="article">
             <div class="item">
                 <h2><a class="title" href="/blog/{{blog.id}}">{{blog.name}}</a></h2>
+                <span class="label label-info">{{blog.tag_name}}</span>
                 <div class="info">
                     <span class="avatar"><img src="{{blog.user_image}}"></span>
                     <span>{{blog.user_name}}</span>
-                    <span class="status">发表于{{blog.created_at|datetime}}|阅读量{{blog.count}}</span>
+                    <span class="status">发表于{{blog.created_at|datetime}} | 阅读:{{blog.count}}</span>
                 </div>
                 <div class="content">
                     <p>{{blog.content|summary}}</p>
@@ -54,28 +55,28 @@
                 <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span>标签云</h3>
             </div>
             <div class="panel-body tags">
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/python" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">Python</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/javascript" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">JavaScript</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/html" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">HTML</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/css" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">CSS</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/linux" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">Linux</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/sql" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">SQL</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/network" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">网络</span>
                 </a>
-                <a href="" class="btn btn-xs btn-default btn-round btn-tags">
+                <a href="/blogs/others" class="btn btn-xs btn-default btn-round btn-tags">
                     <span class="text-sm">其它</span>
                 </a>
 

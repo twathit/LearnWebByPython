@@ -60,8 +60,9 @@ $(function () {
                     </a>
                 </div>
                 {% endif %}
+                <span class="label label-info">{{blog.tag_name}}</span>
                 <div class="info">
-                    <span class="status">发表于{{ blog.created_at|datetime}}</span>
+                    <span class="status">发表于{{ blog.created_at|datetime}} | 阅读:{{blog.count}}</span>
                 </div>
                 <div class="content">
                     <p>{{ blog.html_content|safe }}</p>
