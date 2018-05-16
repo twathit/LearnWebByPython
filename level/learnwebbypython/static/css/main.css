@@ -183,6 +183,7 @@ a:hover, a:active {
 
 .article .item .info {
 	color: #999;
+	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
@@ -439,4 +440,9 @@ a:hover, a:active {
 
 .text-sm {
 	font-size: 10px;
+}
+
+.label {
+	padding: .1em .1em;
+	font-weight: 400;
 }

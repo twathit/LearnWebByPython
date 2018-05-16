@@ -11,7 +11,7 @@ function initVM(blog){
         el: '#vm',
         data: blog,
         methods: {
-            submit:  function (event) {
+            submit: function (event) {
                 event.preventDefault();
                 var $form = $('#vm').find('form');
                 $form.postJSON(action, this.$data, function (err, r) {
@@ -23,6 +23,9 @@ function initVM(blog){
                         return location.assign('/blog/'+r.id);
                     }
                 });
+            },
+            add:function(tag) {
+                this.tags.push(tag);
             }
         }
     });
@@ -42,6 +45,7 @@ $(function (){
         $('#loading').hide();
         initVM({
             name:'',
+            tags:[],
             summary:'',
             content:''
         });
@@ -70,6 +74,36 @@ $(function (){
                 <label for="for-name">标题：</label>                
                 <input class="form-control" id="for-name" v-model="name" name="name" type="text" placeholder="标题" class="col-xs-12">
             </div>
+            <div class="form-group">
+                <label for="for-tag">标签：</label>                
+                <input class="form-control" id="for-tag" v-model="tags" name="tags" type="text" placeholder="添加个标签吧" class="col-xs-12">
+                <div class="panel-body tags">
+                    <a v-on:click="add('Python')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">Python</span>
+                    </a>
+                    <a v-on:click="add('JavaScript')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">JavaScript</span>
+                    </a>
+                    <a v-on:click="add('HTML')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">HTML</span>
+                    </a>
+                    <a v-on:click="add('CSS')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">CSS</span>
+                    </a>
+                    <a v-on:click="add('Linux')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">Linux</span>
+                    </a>
+                    <a v-on:click="add('SQL')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">SQL</span>
+                    </a>
+                    <a v-on:click="add('网络')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">网络</span>
+                    </a>
+                    <a v-on:click="add('其它')" class="btn btn-xs btn-default btn-round btn-tags">
+                        <span class="text-sm">其它</span>
+                    </a>
+                </div>
+            </div>            
             <div class="form-group">
                 <label for="for-summary">摘要：</label>
                 <textarea class="form-control" id="for-summary" v-model="summary" rows="4" name="summary" placeholder="摘要" class="col-xs-12" style="resize:none;"></textarea>

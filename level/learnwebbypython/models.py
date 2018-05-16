@@ -26,7 +26,7 @@ class Blog(Model):
     name = StringField(column_type='varchar(50)')
     summary = StringField(column_type='varchar(200)')
     content = TextField()
-    tag_name = StringField(column_type='varchar(50)')
+    tags = StringField(column_type='varchar(50)')
     count = IntegerField()
     created_at = FloatField(default=time.time)
 

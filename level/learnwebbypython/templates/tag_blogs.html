@@ -16,7 +16,7 @@
                 <div class="info">
                     <span class="avatar"><img src="{{blog.user_image}}"></span>
                     <span>{{blog.user_name}}</span>
-                    <span class="status">发表于{{blog.created_at|datetime}}</span>
+                    <span class="status">发表于{{blog.created_at|datetime}} | 阅读:{{blog.count}}</span>
                 </div>
                 <div class="content">
                     <p>{{blog.content|summary}}</p>

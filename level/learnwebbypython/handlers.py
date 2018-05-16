@@ -93,14 +93,14 @@ def index(*, page='1'):
         }
 
 @get('/blogs/{tag}')
-def get_blog(*,tag, page='1'):
+def get_blogs(*,tag, page='1'):
     page_index = get_page_index(page)
     num = yield from Blog.findNumber('count(id)')
     page = Page(num, page_index)
     if num == 0:
         blogs = []
     else:
-        blogs = yield from Blog.findAll('tag_name=?', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
+        blogs = yield from Blog.findAll('tags=?', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
     return {
             '__template__': 'tag_blogs.html',
             'page': page,
@@ -312,6 +312,7 @@ def api_blogs(*, page='1'):
 @get('/api/blogs/{id}')
 def api_get_blog(*, id):
     blog = yield from Blog.find(id)
+    blog.tags = blog.tags.split(',')
     return blog
 
 @get('/api/userblogs')
@@ -335,7 +336,7 @@ def api_get_usercomment(*,user_name, page='1'):
     return dict(page=p, comments=comments)
 
 @post('/api/blogs')
-def api_create_blog(request, *, name, summary, content):
+def api_create_blog(request, *, name, tags, summary, content):
     check_admin(request)
     if not name or not name.strip():
         raise APIValueError('name', 'name cannot be empty.')
@@ -343,12 +344,13 @@ def api_create_blog(request, *, name, summary, content):
         raise APIValueError('summary', 'summary cannot be empty.')
     if not content or not content.strip():
         raise APIValueError('content', 'content cannot be empty')
-    blog = Blog(user_id=request.__user__.id, user_name=request.__user__.name, user_image=request.__user__.image, name=name.strip(), summary=summary.strip(), content=content.strip())
+    tag_name = ','.join(tags)
+    blog = Blog(user_id=request.__user__.id, user_name=request.__user__.name, user_image=request.__user__.image, name=name.strip(), summary=summary.strip(), content=content.strip(), tags = tag_name.strip())
     yield from blog.save()
     return blog
 
 @post('/api/blogs/{id}')
-def api_update_blog(id, request, *, name, summary, content,tag):
+def api_update_blog(id, request, *, name, summary, content, tags):
     check_admin(request)
     blog = yield from Blog.find(id)
     if not name or not name.strip():
@@ -360,7 +362,7 @@ def api_update_blog(id, request, *, name, summary, content,tag):
     blog.name = name.strip()
     blog.summary = summary.strip()
     blog.content = content.strip()
-    blog.tag_name = tag.strip()
+    blog.tags = tags.strip()
     yield from blog.update()
     return blog
 
