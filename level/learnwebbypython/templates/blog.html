@@ -61,7 +61,11 @@ $(function () {
                 </div>
                 {% endif %}
                 <div class="info">
-                    <span class="status">发表于{{ blog.created_at|datetime}} · <span class="label label-info">{{blog.tags}}</span> · 阅读:{{blog.count}}</span>
+                    <span class="status">发表于{{ blog.created_at|datetime}} · </span>
+                    {% for tag in blog.tags %}
+                    <span class="label label-info">{{tag}}</span>
+                    {% endfor %}
+                    <span class="count">阅读量:{{blog.count}}</span>
                 </div>
                 <div class="content">
                     <p>{{ blog.html_content|safe }}</p>

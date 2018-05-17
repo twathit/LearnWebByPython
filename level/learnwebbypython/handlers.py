@@ -86,6 +86,12 @@ def index(*, page='1'):
         blogs = []
     else:
         blogs = yield from Blog.findAll(orderBy='created_at desc', limit=(page.offset, page.limit))
+    for blog in blogs:
+        if blog.tags:
+            blog.tags = blog.tags.split(',')
+        else:
+            blog.tags = []
+        blog.html_content = markdown2.markdown(blog.content)
     return {
             '__template__': 'blogs.html',
             'page': page,
@@ -118,6 +124,10 @@ def get_blog(id):
     comments = yield from Comment.findAll('blog_id=?', [id], orderBy='created_at desc')
     for c in comments:
         c.html_content = text2html(c.content)
+    if blog.tags:
+        blog.tags = blog.tags.split(',')
+    else:
+        blog.tags = []
     blog.html_content = markdown2.markdown(blog.content)
     return {
         '__template__': 'blog.html',
@@ -312,7 +322,10 @@ def api_blogs(*, page='1'):
 @get('/api/blogs/{id}')
 def api_get_blog(*, id):
     blog = yield from Blog.find(id)
-    blog.tags = blog.tags.split(',')
+    if blog.tags:
+        blog.tags = blog.tags.split(',')
+    else:
+        blog.tags = []
     return blog
 
 @get('/api/userblogs')
@@ -362,7 +375,8 @@ def api_update_blog(id, request, *, name, summary, content, tags):
     blog.name = name.strip()
     blog.summary = summary.strip()
     blog.content = content.strip()
-    blog.tags = tags.strip()
+    tag_name = ','.join(tags)
+    blog.tags = tag_name.strip()
     yield from blog.update()
     return blog
 

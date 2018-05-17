@@ -157,12 +157,12 @@ a:hover, a:active {
 	transition: transform 200ms;
 }
 
-.article .item:hover {
+/* .article .item:hover {
 	-webkit-transform: scale(1.01,1.01);
 	-ms-transform: scale(1.01,1.01);
 	-o-transform: scale(1.01,1.01);
 	transform: scale(1.01,1.01);
-}
+} */
 
 .article .item .title {
 	display: block;
@@ -178,13 +178,17 @@ a:hover, a:active {
 
 .article .item .title:hover {
 	color:#6b5dde;
-	font-size: 22px
+	font-size: 21px
 }
 
 .article .item .info {
 	color: #999;
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.count {
+	float: right;
 }
 
 .article .item .content {
