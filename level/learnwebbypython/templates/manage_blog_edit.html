@@ -29,9 +29,9 @@ function initVM(blog){
                 this.tags.push(tag);
                 event.currentTarget.classList.add('active');
             },
-            delete:function(index,event) {
+            deleteTag:function(index,event) {
                 this.tags.splice(index,1);
-                
+                event.currentTarget.classList.remove('active');
             }
         }
     });
@@ -83,7 +83,7 @@ $(function (){
             <div class="form-group">
                 <label for="for-tag">标签：</label>
                 <a v-for="(tag,index) in tags" class="btn btn-xs btn-default btn-round btn-tags">
-                    <span class="text-sm">${tag}<span v-on:click="delete(index,$event)">&times</span></span>
+                    <span class="text-sm">${tag}<span v-on:click="deleteTag(index,$event)">&times</span></span>
                 </a>                
                 <input class="form-control" id="for-tag" v-model="tags" name="tags" type="text" placeholder="添加个标签吧" class="col-xs-12">
                 <div class="panel-body tags">
