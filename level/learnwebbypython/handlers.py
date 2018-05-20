@@ -106,7 +106,7 @@ def get_blogs(*,tag, page='1'):
     if num == 0:
         blogs = []
     else:
-        blogs = yield from Blog.findAll('tags=?', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
+        blogs = yield from Blog.findAll('tags like \%?\%', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
     return {
             '__template__': 'tag_blogs.html',
             'page': page,

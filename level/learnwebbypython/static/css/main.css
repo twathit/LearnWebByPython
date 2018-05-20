@@ -450,3 +450,7 @@ a:hover, a:active {
 	padding: .1em .1em;
 	font-weight: 400;
 }
+
+.btn-choosen {
+	margin-right: 5px;
+}

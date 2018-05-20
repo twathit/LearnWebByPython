@@ -27,11 +27,10 @@ function initVM(blog){
             },
             add:function(tag,event) {
                 this.tags.push(tag);
-                event.currentTarget.classList.add('active');
+                // event.currentTarget.classList.add('active');
             },
             deleteTag:function(index,event) {
                 this.tags.splice(index,1);
-                event.currentTarget.classList.remove('active');
             }
         }
     });
@@ -82,33 +81,33 @@ $(function (){
             </div>
             <div class="form-group">
                 <label for="for-tag">标签：</label>
-                <a v-for="(tag,index) in tags" class="btn btn-xs btn-default btn-round btn-tags">
+                <a v-for="(tag,index) in tags" class="btn btn-xs btn-default btn-choosen">
                     <span class="text-sm">${tag}<span v-on:click="deleteTag(index,$event)">&times</span></span>
                 </a>                
                 <input class="form-control" id="for-tag" v-model="tags" name="tags" type="text" placeholder="添加个标签吧" class="col-xs-12">
                 <div class="panel-body tags">
-                    <a v-on:click="add('Python',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('Python',$event)" :class="{active:tags.indexOf('Python')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">Python</span>
                     </a>
-                    <a v-on:click="add('JavaScript',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('JavaScript',$event)" :class="{active:tags.indexOf('JavaScript')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">JavaScript</span>
                     </a>
-                    <a v-on:click="add('HTML',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('HTML',$event)" :class="{active:tags.indexOf('HTML')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">HTML</span>
                     </a>
-                    <a v-on:click="add('CSS',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('CSS',$event)" :class="{active:tags.indexOf('CSS')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">CSS</span>
                     </a>
-                    <a v-on:click="add('Linux',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('Linux',$event)" :class="{active:tags.indexOf('Linux')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">Linux</span>
                     </a>
-                    <a v-on:click="add('SQL',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('SQL',$event)" :class="{active:tags.indexOf('SQL')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">SQL</span>
                     </a>
-                    <a v-on:click="add('网络',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('网络',$event)" :class="{active:tags.indexOf('网络')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">网络</span>
                     </a>
-                    <a v-on:click="add('其它',$event)" class="btn btn-xs btn-default btn-round btn-tags">
+                    <a v-on:click="add('其它',$event)" :class="{active:tags.indexOf('其它')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">其它</span>
                     </a>
                 </div>
