@@ -106,7 +106,7 @@ def get_blogs(*,tag, page='1'):
     if num == 0:
         blogs = []
     else:
-        blogs = yield from Blog.findAll('tags like \%?\%', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
+        blogs = yield from Blog.findAll('find_in_set(?,tags)', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
     return {
             '__template__': 'tag_blogs.html',
             'page': page,
@@ -353,8 +353,8 @@ def api_create_blog(request, *, name, tags, summary, content):
     check_admin(request)
     if not name or not name.strip():
         raise APIValueError('name', 'name cannot be empty.')
-    if not summary or not summary.strip():
-        raise APIValueError('summary', 'summary cannot be empty.')
+    # if not summary or not summary.strip():
+    #     raise APIValueError('summary', 'summary cannot be empty.')
     if not content or not content.strip():
         raise APIValueError('content', 'content cannot be empty')
     tag_name = ','.join(tags)
@@ -368,8 +368,8 @@ def api_update_blog(id, request, *, name, summary, content, tags):
     blog = yield from Blog.find(id)
     if not name or not name.strip():
         raise APIValueError('name', 'name cannot be empty.')
-    if not summary or not summary.strip():
-        raise APIValueError('summary', 'summary cannot be empty.')
+    # if not summary or not summary.strip():
+    #     raise APIValueError('summary', 'summary cannot be empty.')
     if not content or not content.strip():
         raise APIValueError('content', 'content cannot be empty.')
     blog.name = name.strip()

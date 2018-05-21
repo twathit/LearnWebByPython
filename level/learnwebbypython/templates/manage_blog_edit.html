@@ -81,10 +81,11 @@ $(function (){
             </div>
             <div class="form-group">
                 <label for="for-tag">标签：</label>
-                <a v-for="(tag,index) in tags" class="btn btn-xs btn-default btn-choosen">
-                    <span class="text-sm">${tag}<span v-on:click="deleteTag(index,$event)">&times</span></span>
-                </a>                
-                <input class="form-control" id="for-tag" v-model="tags" name="tags" type="text" placeholder="添加个标签吧" class="col-xs-12">
+                <div class="input-tags">
+                    <a v-for="(tag,index) in tags" class="btn btn-xs btn-default btn-choosen">
+                        <span class="text-sm" v-cloak>${tag}<span v-on:click="deleteTag(index,$event)">&times</span></span>
+                    </a> 
+                </div>                                
                 <div class="panel-body tags">
                     <a v-on:click="add('Python',$event)" :class="{active:tags.indexOf('Python')!==-1}" class="btn btn-xs btn-default btn-round btn-tags">
                         <span class="text-sm">Python</span>

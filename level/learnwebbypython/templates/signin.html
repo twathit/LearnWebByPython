@@ -23,7 +23,7 @@
                     $form.postJSON('api/authenticate',data,function(err,result){
                         if (!err){
                             var prevLink = document.referrer;
-                            if($.trim(prevLink)=='' || $.trim(prevLink).indexOf('register')!=-1){
+                            if($.trim(prevLink)=='' || $.trim(prevLink).indexOf('register')!=-1 || $.trim(prevLink).indexOf('signin')!=-1){
                                 location.href = '/';
                             }
                             else{

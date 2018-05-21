@@ -8,21 +8,26 @@ function initVM(data){
         data:{
             blogs:data.blogs,
             page:data.page,
-            page_index:{{page_index}}
+            page_index:{{page_index}},
+            nowIndex:-1,
+            blogName:''
         },
+        delimiters:['${','}'],
         methods:{
             edit_blog:function (blog){
                 location.assign('/manage/blog/edit?id='+blog.id);
             },
-            delete_blog:function(blog){
-                if (confirm('确认要删除“'+'blog.name'+'”？删除后不可恢复！')){
-                    postJSON('api/blogs/'+blog.id+'/delete',function(err,r){
+            delete_blog:function(blogIndex){
+                // if (confirm('确认要删除“'+'blog.name'+'”？删除后不可恢复！')){
+                 // if (this.delete===true){
+                    var blog = this.blogs[blogIndex];
+                    postJSON('/api/blogs/'+blog.id+'/delete',function(err,r){
                         if (err){
                             return alert(err.message||err.error||err);
                         }
                         refresh();
                     });
-                }
+                // }
             }
         }
     });
@@ -70,6 +75,7 @@ $(function(){
         <span><i class="fa fa-spinner fa-pulse fa-lg"></i>正在加载...</span>
     </div>
     <div id="vm" class="col-xs-12">
+
         <a href="/manage/blog/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>新日志</a>
         <div class="panel panel-order">                   
             <table class="table table-hover">
@@ -82,7 +88,7 @@ $(function(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="blog in blogs">
+                    <tr v-for="(blog,index) in blogs">
                         <td>
                             <a target="_blank" v-bind:href="'/blog/'+blog.id" v-text="blog.name"></a>
                         </td>
@@ -93,8 +99,8 @@ $(function(){
                             <span v-text="blog.created_at.toDateTime()"></span>
                         </td>
                         <td>
-                            <a href="#0" v-on:click="edit_blog(blog)"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="#0" v-on:click="delete_blog(blog)"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a href="#" v-on:click="edit_blog(blog)"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#layer" v-on:click="nowIndex=index;blogName=blog.name"><i class="glyphicon glyphicon-trash"></i></a>
                         </td>
                     </tr>
                     <tr v-show="blogs.length===0">
@@ -104,6 +110,22 @@ $(function(){
                     </tr>
                 </tbody>
             </table>
+            <div role="dialog" class="modal fade" id="layer" data-text="nowIndex">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">            
+                            <h5 class="modal-title">你确定要删除《${blogName}》吗？</h5>
+                            <button class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-right">
+                            <button class="btn btn-danger btn-small" data-dismiss="modal" v-on:click="delete_blog(nowIndex)">是的</button>
+                            <button class="btn btn-primary btn-small" data-dismiss="modal">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- <div v-component="pagination" v-with="page"></div> -->
         <pagination v-bind:page="page" v-bind:page_index="page_index"></pagination>
