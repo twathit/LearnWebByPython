@@ -116,7 +116,7 @@ def datetime_filter(t):
     return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
 
 def get_summary(text):
-    return text[0:100]+'...'
+    return text[0:100]+'...' if len(text)>=100 else text
 
 async def init(loop):
     await orm.create_pool(loop=loop, **configs.db)
