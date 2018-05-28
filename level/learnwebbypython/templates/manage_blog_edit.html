@@ -1,10 +1,12 @@
 {% extends '__base__.html' %}
 {% block title %}编辑日志{% endblock %}
 {% block beforehead %}
-<script>
+<script type="module">
 var
     ID='{{id}}',
     action='{{action}}';
+
+Vue.use(VueQuillEditor);
 
 function initVM(blog){
     var vm = new Vue({
@@ -121,6 +123,7 @@ $(function (){
                 <label for="for-content">内容：</label>
                 <textarea class="form-control" id="for-content" v-model="content" rows="16" name="content" placeholder="内容" class="col-xs-12" style="resize:none;"></textarea>
             </div>
+            <quill-editor v-model="content"></quill-editor>
             <div class="form-group">
                 <button type="submit" v-on:click="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i>保存</button>
                 <a href="/manage/blogs" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i>取消</a>

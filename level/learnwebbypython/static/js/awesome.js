@@ -355,7 +355,11 @@ function postJSON(url, data, callback) {
 
 // extends Vue:
 
+import mavonEditor from '../static/js/mavon-editor.js';
+import '../static/css/index.css';
+
 if (typeof(Vue)!=='undefined') {
+    Vue.use(mavonEditor);
     Vue.filter('datetime', function (value) {
         var d = value;
         if (typeof(value)==='number') {

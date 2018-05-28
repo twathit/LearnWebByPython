@@ -34,10 +34,11 @@
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
     <script src="/static/js/vue.min.js"></script>
     <script src="/static/js/awesome.js"></script>
+    <script src="/static/js/vue-quill-editor.js"></script>
     {% block beforehead %}<!-- before head -->{% endblock %}
 </head>
 <body>
-    <div id="top">
+    <div id="top" style="display:none;">
         <a href="javascript:;" title="返回顶部"></a>
     </div>
     <div class="push">
@@ -93,7 +94,8 @@
     <script type="text/javascript">
         $(function(){
             $(window).scroll(function(){
-                if ($(window).scrollTop()>=300){
+                var windowH = $(window).innerHeight();
+                if ($(window).scrollTop()>=windowH){
                     $('#top').fadeIn(500);
                 }else{
                     $('#top').fadeOut(500);
