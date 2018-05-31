@@ -18,4 +18,7 @@
 将前端更新为使用bootstrap，外加自己的一些修改，详见main.css
 
 **2018-5-22**  
-更新使用VUE2.5，并且增添了标签功能，可以编辑日志时添加标签，并且查询同一标签下的文章。
+更新使用VUE2.5，并且增添了标签功能，可以编辑日志时添加标签，并且查询同一标签下的文章。  
+
+**2018-5-31**  
+增加了markdown编辑器[mavon-editor](https://github.com/hinesboy/mavonEditor)
