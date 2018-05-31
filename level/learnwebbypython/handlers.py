@@ -128,7 +128,7 @@ def get_blog(id):
         blog.tags = blog.tags.split(',')
     else:
         blog.tags = []
-    blog.html_content = markdown2.markdown(blog.content)
+    blog.html_content = markdown2.markdown(blog.content,extras=['fenced-code-blocks'])
     return {
         '__template__': 'blog.html',
         'blog': blog,
