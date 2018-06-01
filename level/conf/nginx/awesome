@@ -1,9 +1,9 @@
 server {
     listen      80;
 
-    root       /python/LearnWebByPython/level/learnwebbypython;
-    access_log /python/LearnWebByPython/level/log/access_log;
-    error_log  /python/LearnWebByPython/level/log/error_log;
+    root       /python/learnwebbypython/level/learnwebbypython;
+    access_log /python/learnwebbypython/level/log/access_log;
+    error_log  /python/learnwebbypython/level/log/error_log;
 
     server_name www.yyhbzyq.com;
 
@@ -17,11 +17,11 @@ server {
     sendfile on;
 
     location /favicon.ico {
-        root /python/LearnWebByPython/level/learnwebbypython;
+        root /python/learnwebbypython/level/learnwebbypython;
     }
 
     location ~ ^\/static\/.*$ {
-        root /python/LearnWebByPython/level/learnwebbypython;
+        root /python/learnwebbypython/level/learnwebbypython;
     }
 
     location / {
