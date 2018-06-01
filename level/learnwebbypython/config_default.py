@@ -8,7 +8,7 @@ configs = {
         'port': 3306,
         'user': 'root',
         'password': '151480',
-        'database': 'awesome'
+        'database': 'twathit'
     },
     'session': {
         'secret': 'Awesome'

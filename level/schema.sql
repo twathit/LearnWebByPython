@@ -1,8 +1,8 @@
-drop database if exists awesome;
-create database awesome;
-use awesome;
+drop database if exists twathit;
+create database twathit;
+use twathit;
 # 赋给用户权限
-grant select,insert,update,delete on awesome.* to 'root'@'localhost' identified by '151480';
+grant select,insert,update,delete on twathit.* to 'root'@'localhost' identified by '151480';
 create table users(
      `id` varchar(50) not null,
      `email` varchar(50) not null,
@@ -23,6 +23,8 @@ create table blogs(
      `name` varchar(50) not null,
      `summary` varchar(200) not null,
      `content` mediumtext not null,
+     `tags` varchar(50) not null,
+     `count` bigint not null,
      `created_at` real not null,
      key `idx_created_at` (`created_at`),
      primary key(`id`)
