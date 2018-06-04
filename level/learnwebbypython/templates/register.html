@@ -61,7 +61,7 @@ $(function () {
 
     <div class="container-small">
         <h1><a href="/"><b class="font-Y">欢迎注册！</b></a></h1>
-        <form id="vm" v-on="submit: submit">
+        <form id="vm">
             <div class="alert alert-warning alert-dismissible hidden">
                 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
@@ -107,7 +107,7 @@ $(function () {
                 
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-user"></i> 注册</button>
+                <button v-on:click="submit" type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-user"></i> 注册</button>
             </div>
         </form>
     </div>
