@@ -33,6 +33,17 @@ function initVM(blog){
             },
             deleteTag:function(index,event) {
                 this.tags.splice(index,1);
+            },
+            $imgAdd(pos,$file){
+                var formdata = new FormData();
+                formdata.append('image',$file);
+                $.ajax('/api/img',{
+                    methods:'POST',
+                    contentType:'multipart/form-data',
+                    data:formdata
+                }).done(function(url){
+                    $vm.$img2Url(pos,url);
+                })
             }
         }
     });
@@ -121,7 +132,7 @@ $(function (){
             </div>
             <div class="form-group">
                 <label for="for-content">内容：</label>
-                <mavon-editor class="mk-editor" id="for-content" v-model="content" rows="16" name="content"></mavon-editor>
+                <mavon-editor ref=md @imgAdd="$imgAdd" @imgDel="$imgDel" class="mk-editor" id="for-content" v-model="content" rows="16" name="content"></mavon-editor>
             </div>
             
             <div class="form-group">

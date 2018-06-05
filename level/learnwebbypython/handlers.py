@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 __author__ = 'Edward'
-import re, time, json, logging, hashlib, asyncio
+import re, time, json, logging, hashlib, asyncio, os
 import markdown2
 from aiohttp import web
 from coroweb import get, post
@@ -386,3 +386,13 @@ def api_delete_blog(request, *, id):
     blog=yield from Blog.find(id)
     yield from blog.remove()
     return dict(id=id)
+
+@post('/api/img')
+def api_save_img(request,image):
+    check_admin(request)
+    filename = str(int time.time()+'.jpg')
+    filepath = os.path.join('/static/images/img',filename)
+    with open(filepath,'wb') as f:
+        f.write(image)
+    return filepath
+
