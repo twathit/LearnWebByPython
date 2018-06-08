@@ -388,9 +388,9 @@ def api_delete_blog(request, *, id):
     return dict(id=id)
 
 @post('/api/img')
-def api_save_img(request,image):
-    check_admin(request)
-    filename = str(int time.time()+'.jpg')
+def api_save_img(image):
+    #check_admin(request)
+    filename = str(int (time.time())+'.jpg')
     filepath = os.path.join('/static/images/img',filename)
     with open(filepath,'wb') as f:
         f.write(image)
