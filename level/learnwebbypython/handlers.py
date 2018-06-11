@@ -91,7 +91,7 @@ def index(*, page='1'):
             blog.tags = blog.tags.split(',')
         else:
             blog.tags = []
-        blog.html_content = markdown2.markdown(blog.content)
+        blog.html_content = markdown2.markdown(blog.content,extras=['fenced-code-blocks'])
     return {
             '__template__': 'blogs.html',
             'page': page,
@@ -107,6 +107,8 @@ def get_blogs(*,tag, page='1'):
         blogs = []
     else:
         blogs = yield from Blog.findAll('find_in_set(?,tags)', [tag], orderBy='created_at desc', limit=(page.offset, page.limit))
+    for blog in blogs:
+        blog.html_content = markdown2.markdown(blog.content,extras=['fenced-code-blocks'])
     return {
             '__template__': 'tag_blogs.html',
             'page': page,

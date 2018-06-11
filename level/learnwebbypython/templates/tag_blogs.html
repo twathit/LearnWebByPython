@@ -19,7 +19,7 @@
                     <span class="status">发表于{{blog.created_at|datetime}} | 阅读:{{blog.count}}</span>
                 </div>
                 <div class="content">
-                    <p>{{blog.content|summary}}</p>
+                    <p>{{blog.html_content|summary|safe}}</p>
                 </div>
                 <!--<p>{{blog.summary}}</p>-->
                 

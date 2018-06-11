@@ -190,7 +190,8 @@ a:hover, a:active {
 .article .item .content {
 	line-height: 1.5;
 	font-size: 15px;
-	text-indent: 2em;
+	/* text-indent: 2em; */
+	word-wrap: break-word;
 }
 
 .article .paper {
@@ -223,6 +224,11 @@ a:hover, a:active {
 .article .paper .content {
 	line-height: 1.5;
 	font-size: 15px;
+	/* text-indent: 2em; */
+	word-wrap: break-word;
+}
+
+.article .content>p {
 	text-indent: 2em;
 }
 
@@ -290,7 +296,7 @@ a:hover, a:active {
 }
 
 .container-small {
-	max-width: 400px;
+	max-width: 80%;
 	margin: 0 auto;
 	margin-top: 60px;
 }
@@ -415,17 +421,31 @@ a:hover, a:active {
 #top {
 	position: fixed;
 	bottom: 140px;
-	right: 150px;
+	right: 10%;
+	z-index: 99;
 }
 
 #top a,
 #top a:link {
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 	display: inline-block;
 	background-image: url('../img/resizeApi.png');
 	background-size: 50%;
 	background-repeat: no-repeat;
+	background-position: top center;
+
+}
+
+@media (max-width: 767px){
+	#top {
+		right: 1%;
+	}
+
+	#top a,
+	#top a:link {
+		background-size: 30%;
+	}
 }
 
 .tags .btn-tags {
@@ -481,7 +501,7 @@ a:hover, a:active {
 	position:fixed;
 	top:0;
 	left:0;
-	width:220px;
+	width:200px;
 	height:100%;
 	background-color:#6a8ff7;
 	z-index:9999;
