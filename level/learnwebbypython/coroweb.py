@@ -163,8 +163,9 @@ def add_routes(app,module_name):
     if n == (-1):
         mod = __import__(module_name, globals(), locals())
     else:
-        name = module_name[n+1:]
-        mod = getattr(__import__(module_name[:n], globals(), locals(), [name]), name)
+        # name = module_name[n+1:]
+        # mod = getattr(__import__(module_name[:n], globals(), locals(), [name]), name)
+        mod = __import__(module_name[:n], globals(), locals())
     for attr in dir(mod):
         #如果要获得一个对象的所有属性和方法，可以使用dir()函数
         if attr.startswith('_'):

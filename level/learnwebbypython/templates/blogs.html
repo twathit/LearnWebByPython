@@ -8,7 +8,7 @@
 </script>
 {% endblock %}
 {% block content %}
-    <div class="col-xs-9 col-xs-full">
+    <div class="col-xs-9 col-xs-full animated fadeInDown">
     {% for blog in blogs %}
         <article class="article">
             <div class="item">
@@ -28,7 +28,6 @@
                 <div class="content">
                     <p>{{blog.html_content|summary|safe}}</p>
                 </div>
-                <!--<p>{{blog.summary}}</p>-->
                 
                 <p><a href="/blog/{{blog.id}}">
                     <button class="btn btn-default">继续阅读<i class="fa fa-angle-double-right"></i></button>

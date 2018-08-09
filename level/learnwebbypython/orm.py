@@ -29,7 +29,7 @@ def select(sql, args, size=None):
     global __pool
     with (yield from __pool) as conn:
         cur = yield from conn.cursor(aiomysql.DictCursor)
-        yield from cur.execute(sql.replace('?', '%s'), args or ())
+        yield from cur.execute(sql.replace('?', '%s'), args or ())      #用,args传入参数而不是%args可以防止SQL注入，因为execute会对传入的参数预处理不会当做指令来执行
         if size:
             rs = yield from cur.fetchmany(size)
         else:
@@ -179,7 +179,7 @@ class Model(dict, metaclass=ModelMetaclass):
             else:
                 raise ValueError('Invalid limit value:%s'%str(limit))
         rs = yield from select(' '.join(sql), args)
-        return [cls(**r) for r in rs]
+        return [cls(**r) for r in rs]       #使用cls()返回类的实例
 
     @classmethod
     @asyncio.coroutine
@@ -218,7 +218,7 @@ class Model(dict, metaclass=ModelMetaclass):
         rs = yield from select(' '.join(sql), args, 1)
         if len(rs) == 0:
             return None
-        return rs[0]['_num_']
+        return rs[0]['_num_']       #_num_是别名，前面省略了as
 
     @classmethod
     @asyncio.coroutine
@@ -226,7 +226,7 @@ class Model(dict, metaclass=ModelMetaclass):
         rs = yield  from select('%s where `%s`=?' % (cls.__select__, cls.__primary_key__), [pk], 1)
         if len(rs) == 0:
             return None
-        return cls(**rs[0])
+        return cls(**rs[0])     #rs是list对象，里面的元素是dict类型的,rs[0]就是取list的第一个元素，**rs[0]就是把这个dict里的键值对当成参数传入
 
     @asyncio.coroutine
     def save(self):

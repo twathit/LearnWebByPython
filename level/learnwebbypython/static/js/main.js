@@ -76,8 +76,8 @@ if (! Number.prototype.toDateTime) {
     var token = /([a-zA-Z]+)/;
     Number.prototype.toDateTime = function(format) {
         var fmt = format || 'yyyy-MM-dd hh:mm:ss'
-        var dt = new Date(this * 1000);
-        var arr = fmt.split(token);
+        var dt = new Date(this * 1000);     //因为存储在数据库中的事件是由python的time.time()生成的十位外加小数点后六位时间戳，而Date传入的时间戳是13位的，所以需要*1000
+        var arr = fmt.split(token);     //如果separater包含括号，则其匹配结果将会包含在返回的数组中。例：var token = /[a-zA-Z]+/;var fmt ='yyyy-MM-dd hh:mm:ss';var arr = fmt.split(token);输出：[ '', '-', '-', ' ', ':', ':', '' ]
         for (var i=0; i<arr.length; i++) {
             var s = arr[i];
             if (s && s in replaces) {

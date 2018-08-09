@@ -82,7 +82,7 @@ $(function(){
                 <thead>
                     <tr>
                         <th class="col-xs-5">标题/摘要</th>
-                        <th class="col-xs-2">作者</th>
+                        <!-- <th class="col-xs-2">作者</th> -->
                         <th class="col-xs-3">创建时间</th>
                         <th class="col-xs-2">操作</th>
                     </tr>
@@ -92,9 +92,9 @@ $(function(){
                         <td>
                             <a target="_blank" v-bind:href="'/blog/'+blog.id" v-text="blog.name"></a>
                         </td>
-                        <td>
+                        <!-- <td>
                             <a target="_blank" v-bind:href="'/blog/'+blog.user_id" v-text="blog.user_name"></a>
-                        </td>
+                        </td> -->
                         <td>
                             <span v-text="blog.created_at.toDateTime()"></span>
                         </td>

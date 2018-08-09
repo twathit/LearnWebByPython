@@ -346,7 +346,7 @@ def api_get_usercomment(*,user_name, page='1'):
     num = yield from Comment.findNumber('count(id)')
     p = Page(num, page_index)
     if num == 0:
-        return dict(page=p, blogs=())
+        return dict(page=p, comments=())
     comments = yield from Comment.findAll('user_name=?',[user_name], orderBy='created_at desc', limit=(p.offset, p.limit))
     return dict(page=p, comments=comments)
 

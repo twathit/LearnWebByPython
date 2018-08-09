@@ -48,7 +48,7 @@ $(function(){
         url:'/api/usercomments?user_name={{__user__.name}}&page={{page_index}}'
     }).done(function(results){
        $('#loading').hide();
-        initVM(results); 
+        initVM(results);
     }).fail(function (jqXHR, textStatus) {
     ajaxLog('失败: ' + jqXHR.status + ', 原因: ' + textStatus);}
     )

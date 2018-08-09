@@ -192,6 +192,7 @@ a:hover, a:active {
 	font-size: 15px;
 	/* text-indent: 2em; */
 	word-wrap: break-word;
+	text-overflow: ellipsis;
 }
 
 .article .paper {
@@ -296,9 +297,15 @@ a:hover, a:active {
 }
 
 .container-small {
-	max-width: 80%;
+	max-width: 30%;
 	margin: 0 auto;
 	margin-top: 60px;
+}
+
+@media (max-width: 767px) {
+	.container-small {
+		max-width: 80%;
+	}
 }
 
 .form-control {
@@ -516,7 +523,7 @@ a:hover, a:active {
 	transform:translateX(-220px);
 } /*侧滑关键*/
 
-@media (max-width: 768px){
+@media (max-width: 767px){
 	.navbar-right {
 	    float: right!important;
 	    margin-right: -5px;

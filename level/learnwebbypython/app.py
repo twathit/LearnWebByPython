@@ -64,6 +64,29 @@ async def data_factory(app,handler):
         return (await handler(request))
     return parse_data
 
+'''
+目前为止，aiohttp.web提供三个不同的响应类: StreamResponse, Response和FileResponse。
+通常你要使用的是第二个也就是Response。StreamResponse用于流数据，Response会将HTTP主体保存在一个属性中，以正确的Content-Length头信息发送自己的内容。
+为了设计考虑，Response的父类是StreamResponse。
+StreamResponse拥有方法set_cookie(name, value, *, path='/', expires=None, domain=None, max_age=None, secure=None, httponly=None, version=None)
+name (str) - cookie名称。
+value (str) - cookie值（如果是其他类型的话会尝试转换为str类型）
+expires - 过期时间（可选）。
+domain (str) - cookie主域（可选）。
+max_age (int) - 定义cookie的生命时长，以秒为单位。该参数为非负整数。在经过这些秒后，客户端会抛弃该cookie。如果设置为0则表示立即抛弃。
+path (str) - 设置该cookie应用在哪个路径上（可选，默认是'/'）。
+secure (bool) - 该属性（没有任何值）会让用户代理使用安全协议。用户代理（或许会在用户控制之下）需要决定安全等级，在适当的时候考虑使用“安全”cookie。是不是要使用“安全”要考虑从服务器到用户代理的这段历程，“安全”协议的目的是保证会话在安全情况下进行（可选）。
+httponly (bool) - 如果要设置为HTTP only则为True（可选）。
+version (int) - 一个十进制数，表示使用哪个版本的cookie管理（可选，默认为1）。
+
+web.Response(*, body=None, status=200, reason=None, text=None, headers=None, content_type=None, charset=None)
+body (bytes) - 响应主体。
+status (int) - HTTP状态码，默认200。
+headers (collections.abc.Mapping) - HTTP 头信息，会被添加到响应里。
+text (str) - 响应主体。
+content_type (str) - 响应的内容类型。如果有传入text参数的话则为text/plain，否则是application/octet-stream。
+charset (str) - 响应的charset。如果有传入text参数则为utf-8，否则是None。
+'''
 async def response_factory(app, handler):
     async def response(request):
         logging.info('Response handler...')
